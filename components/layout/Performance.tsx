@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Performance() {
-  return (
-    <div>Performance</div>
-  )
+  return <div>Performance</div>;
 }

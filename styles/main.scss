@@ -1,11 +1,12 @@
-@use "tailwindcss";
+@use 'tailwindcss';
 
-@use "./abstracts/_mixins.scss";
-@use "./abstracts/_keyframes.scss";
-@use "./base/_fonts.scss";
-@use "./base/_lenis.scss";
-@use "./base/_reset.scss";
-@use "./components/_txt.scss";
+@use './abstracts/_mixins.scss';
+@use './abstracts/_keyframes.scss';
+@use './base/_fonts.scss';
+@use './base/_lenis.scss';
+@use './base/_reset.scss';
+@use './components/_txt.scss';
+@use './components/_button.scss';
 
 :root {
   --color-black: #19191f;
@@ -13,34 +14,34 @@
 }
 
 @font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/helvetica-ultra-light.otf") format("opentype");
+  font-style: normal;
   font-weight: 100;
-  font-style: normal;
+  src: url('/fonts/helvetica-ultra-light.otf') format('opentype');
+  font-family: 'Helvetica';
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/helvetica-light.otf") format("opentype");
+  font-style: normal;
   font-weight: 300;
-  font-style: normal;
+  src: url('/fonts/helvetica-light.otf') format('opentype');
+  font-family: 'Helvetica';
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/helvetica-medium.otf") format("opentype");
+  font-style: normal;
   font-weight: 500;
-  font-style: normal;
+  src: url('/fonts/helvetica-medium.otf') format('opentype');
+  font-family: 'Helvetica';
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Helvetica";
-  src: url("/fonts/helvetica-bold.otf") format("opentype");
-  font-weight: 700;
   font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/helvetica-bold.otf') format('opentype');
+  font-family: 'Helvetica';
   font-display: swap;
 }
 
@@ -50,11 +51,11 @@
   box-sizing: border-box;
 }
 html {
-  font-family: "Helvetica";
+  font-family: 'Helvetica';
 }
 
 body {
   background: white;
-  color: var(--color-black);
   background-color: white;
+  color: var(--color-black);
 }
