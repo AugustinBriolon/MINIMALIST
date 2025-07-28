@@ -3,10 +3,11 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import SplitText from 'gsap/SplitText';
 import { useFontReady } from '@/hook/useFontReady';
+import { useIsScreenLoader } from '@/hook/useIsScreenLoader';
 
 gsap.registerPlugin(SplitText);
 
-export const timeToLoad = 5.5;
+export const timeToLoad = useIsScreenLoader() ? 5 : 0;
 
 export default function ScreenLoader() {
   const panelRefs = {
