@@ -97,23 +97,23 @@ export default function ScreenLoader() {
           className="absolute top-0 -left-2/12 h-full w-1/2 origin-left bg-black"
         ></div>
         <div
-          className="absolute top-0 -right-2/12 h-full w-1/2 origin-right bg-black"
           ref={panelRefs.right}
+          className="absolute top-0 -right-2/12 h-full w-1/2 origin-right bg-black"
         ></div>
 
         <div className="absolute top-1/2 left-1/2 z-11 -translate-x-1/2 -translate-y-1/2 overflow-hidden">
-          <h1 className="z-11 text-7xl font-bold text-white opacity-0" ref={titleRef}>
+          <h1 ref={titleRef} className="z-11 text-7xl font-bold text-white opacity-0">
             MINIMALIST
           </h1>
         </div>
 
         <div
-          className="absolute top-0 left-0 h-1/2 w-full origin-top bg-black"
           ref={panelRefs.top}
+          className="absolute top-0 left-0 h-1/2 w-full origin-top bg-black"
         ></div>
         <div
-          className="absolute bottom-0 left-0 h-1/2 w-full origin-bottom bg-black"
           ref={panelRefs.bottom}
+          className="absolute bottom-0 left-0 h-1/2 w-full origin-bottom bg-black"
         ></div>
       </div>
     </div>
