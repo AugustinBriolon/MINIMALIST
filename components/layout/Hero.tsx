@@ -30,15 +30,21 @@ export default function Hero() {
       type: 'words',
     });
 
-    // Définir l'état initial du cercle - commence depuis le haut (12h)
     gsap.set(circleRef.current, {
-      strokeDasharray: '75.4 75.4', // 2 * π * r = 2 * 3.14159 * 12 ≈ 75.4
-      strokeDashoffset: '75.4', // Commence avec 0% visible (cercle complètement caché)
-      opacity: 0, // Cache complètement le cercle au départ
+      strokeDasharray: '75.4 75.4',
+      strokeDashoffset: '75.4',
+      opacity: 0,
     });
 
     gsap
       .timeline()
+      .from(titleRef.current, {
+        yPercent: 100,
+        filter: 'blur(10px)',
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.out',
+      })
       .from(logoRef.current, {
         delay: timeToLoad,
         y: -100,
@@ -46,17 +52,6 @@ export default function Hero() {
         duration: 1,
         ease: 'power2.out',
       })
-      .from(
-        titleRef.current,
-        {
-          yPercent: 100,
-          filter: 'blur(10px)',
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.out',
-        },
-        '<',
-      )
       .from(
         split.words,
         {
@@ -151,13 +146,13 @@ export default function Hero() {
     <div className="relative h-dvh w-full bg-[url(/images/hero.webp)] bg-cover bg-center">
       <div className="absolute inset-0 bg-black/30"></div>
       <div className="relative grid h-2/3 min-h-fit w-full grid-cols-3 grid-rows-2">
-        <div className="col-span-3 flex flex-col justify-between gap-12 p-4">
+        <div className="col-span-3 flex h-full min-h-fit flex-col justify-between p-4">
           <div className="overflow-hidden">
             <h1 ref={logoRef} className="text-4xl font-bold text-white">
               MN_
             </h1>
           </div>
-          <div className="h-fit overflow-hidden">
+          <div className="z-20 h-fit overflow-hidden">
             <Image
               ref={titleRef}
               alt="Minimalist"

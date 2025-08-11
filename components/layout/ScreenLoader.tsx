@@ -7,7 +7,7 @@ import { useIsScreenLoader } from '@/hook/useIsScreenLoader';
 
 gsap.registerPlugin(SplitText);
 
-export const timeToLoad = useIsScreenLoader() ? 5 : 0;
+export const timeToLoad = useIsScreenLoader() ? 3 : 0;
 
 export default function ScreenLoader() {
   const panelRefs = {
@@ -16,43 +16,16 @@ export default function ScreenLoader() {
     left: useRef(null),
     right: useRef(null),
   };
-  const titleRef = useRef(null);
   const isFontReady = useFontReady();
   const screenLoaderRef = useRef(null);
 
   useGSAP(() => {
     if (!isFontReady) return;
 
-    const split = SplitText.create(titleRef.current, {
-      type: 'chars',
-    });
-
-    gsap.set(titleRef.current, {
-      opacity: 1,
-    });
-
     gsap
       .timeline()
-      .from(split.chars, {
-        delay: 0.5,
-        y: 100,
-        filter: 'blur(10px)',
-        stagger: 0.05,
-        duration: 0.5,
-        ease: 'power2.out',
-      })
-      .to(
-        split.chars,
-        {
-          y: -100,
-          opacity: 0,
-          stagger: { each: 0.05, from: 'end' },
-          duration: 0.5,
-          ease: 'power2.out',
-        },
-        '<+1.5',
-      )
       .to(panelRefs.top, {
+        delay: 1,
         y: 100,
       })
       .to(
@@ -100,12 +73,6 @@ export default function ScreenLoader() {
           ref={panelRefs.right}
           className="absolute top-0 -right-2/12 h-full w-1/2 origin-right bg-black"
         ></div>
-
-        <div className="absolute top-1/2 left-1/2 z-11 -translate-x-1/2 -translate-y-1/2 overflow-hidden">
-          <h1 ref={titleRef} className="z-11 text-7xl font-bold text-white opacity-0">
-            MINIMALIST
-          </h1>
-        </div>
 
         <div
           ref={panelRefs.top}

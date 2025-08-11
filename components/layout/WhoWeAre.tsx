@@ -27,7 +27,7 @@ export default function WhoWeAre() {
 
     const scrolltrigger = {
       trigger: sectionRef.current,
-      toggleActions: 'play none none none',
+      toggleActions: 'play reverse none reverse',
       start: 'top 60%',
       end: 'bottom 20%',
     };
@@ -38,14 +38,14 @@ export default function WhoWeAre() {
       })
       .from(lineRefs.two.current, {
         scaleY: 0,
-        duration: 1.2,
+        duration: 2,
         ease: 'power2.out',
       })
       .to(
         lineRefs.one.current,
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 2,
           ease: 'power2.out',
         },
         '<',

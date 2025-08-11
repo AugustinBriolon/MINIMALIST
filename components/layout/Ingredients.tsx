@@ -159,7 +159,7 @@ export default function Ingredients() {
       ref={sectionRef}
       className="flex h-dvh w-full flex-col items-center justify-center bg-white lg:flex-row"
     >
-      <div className="relative flex h-full w-full flex-col items-start justify-between lg:w-1/2">
+      <div className="relative flex h-full w-full flex-col items-start justify-between md:w-1/2">
         {contentData.map((content, index) => (
           <div
             key={content.id}
@@ -203,7 +203,7 @@ export default function Ingredients() {
         ))}
       </div>
 
-      <div className="relative h-1/2 w-full lg:h-full lg:w-1/2">
+      <div className="relative h-1/2 w-full min-w-1/2 md:w-1/2 lg:h-full">
         {contentData.map((content, index) => (
           <div
             key={`image-${content.id}`}
