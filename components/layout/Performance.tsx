@@ -74,10 +74,10 @@ export default function Performance() {
             <p className="text-white">{performance.title}</p>
             <Image
               alt="hyaluronic-acid"
+              className="h-auto w-1/2"
               height={100}
               src={performance.img}
               width={100}
-              className="h-auto w-1/2"
             />
             <p>{performance.stats}</p>
             <p>{performance.text}</p>

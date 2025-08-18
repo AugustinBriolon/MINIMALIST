@@ -107,8 +107,11 @@ export default function Stats() {
   }, [wrapSplitTextLines]);
 
   return (
-    <section ref={sectionRef} className="flex h-dvh w-full gap-16 p-16">
-      <div className="flex h-full w-1/3 flex-col items-start justify-between">
+    <section
+      ref={sectionRef}
+      className="flex h-dvh w-full flex-col gap-8 p-8 md:flex-row md:gap-16 md:p-16"
+    >
+      <div className="flex h-auto w-full flex-col items-start md:h-full md:w-1/3 md:justify-between">
         <div className="overflow-hidden">
           <h2
             ref={titleRef.title}
@@ -121,10 +124,10 @@ export default function Stats() {
           [ IN-VITRO STUDIES ]
         </p>
       </div>
-      <div className="flex h-full w-2/3 flex-col items-start justify-between">
+      <div className="flex h-full w-full flex-col items-start justify-between md:w-2/3">
         <div className="flex flex-col gap-4">
           <h3
-            className="text-[10vw] leading-50 font-normal text-black/10 md:text-[15vw]"
+            className="text-[10vw] font-normal text-black/10 md:text-[15vw] md:leading-50"
             style={{ '--number-flow-char-height': '0.85em' } as React.CSSProperties}
           >
             <NumberFlow
