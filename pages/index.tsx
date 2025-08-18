@@ -14,7 +14,7 @@ export default function Home() {
       <WhoWeAre />
       <Ingredients />
       <Inside />
-      <Performance />
+      {/* <Performance /> */}
       <Stats />
       <Testimonials />
       <Footer />

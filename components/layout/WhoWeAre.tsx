@@ -143,11 +143,11 @@ export default function WhoWeAre() {
         </svg>
       </div>
 
-      <div className="z-1 mx-auto flex flex-col items-center justify-center gap-8 text-center">
+      <div className="z-1 flex flex-col items-center justify-center gap-8 text-center">
         <h2 ref={whoWeAreRef} className="text-lg text-orange-500">
           [ WHO WE ARE? ]
         </h2>
-        <p ref={textRef} className="px-6 text-4xl md:px-24">
+        <p ref={textRef} className="px-2 text-xl md:px-6 md:px-24 md:text-4xl">
           We are a team of skincare enthusiasts dedicated to crafting products that redefine beauty
           standards. Committed to innovation and quality, we blend science with nature to create
           skincare solutions that nourish and transform.

@@ -42,6 +42,7 @@ export default function Inside() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
   const rowRefs = useRef<(HTMLTableRowElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
     if (!sectionRef.current) return;
@@ -82,21 +83,44 @@ export default function Inside() {
       });
     });
 
+    cardRefs.current.filter(Boolean).forEach((card, index) => {
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: `top+=${20 + index * 10}% 80%`,
+          end: `top+=${20 + index * 10}% 20%`,
+          scrub: 1,
+          onUpdate: ({ progress }) => {
+            if (card) {
+              gsap.set(card, {
+                y: 50 * (1 - progress),
+                opacity: progress,
+              });
+            }
+          },
+        },
+      });
+    });
+
     gsap.set(titleRef.current, { opacity: 0, y: 100 });
     gsap.set(rowRefs.current.filter(Boolean), { opacity: 0, y: 50 });
+    gsap.set(cardRefs.current.filter(Boolean), { opacity: 0, y: 50 });
   }, []);
 
   return (
     <div ref={sectionRef} className="flex h-fit flex-col items-center justify-center bg-white">
       <div className="flex h-[50vh] items-center justify-center">
         <div className="overflow-hidden">
-          <h2 ref={titleRef} className="text-[10vw] font-bold text-black/20">
+          <h2
+            ref={titleRef}
+            className="text-[10vw] font-bold text-black/20 md:text-[8vw] lg:text-[6vw]"
+          >
             What's Inside ?
           </h2>
         </div>
       </div>
 
-      <div className="w-full px-8 py-16">
+      <div className="hidden w-full px-8 py-16 lg:block">
         <div className="overflow-x-auto">
           <table ref={tableRef} className="w-full border-collapse">
             <thead>
@@ -122,6 +146,28 @@ export default function Inside() {
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <div className="w-full px-4 py-8 lg:hidden">
+        <div className="space-y-4">
+          {ingredientsData.map((item, index) => (
+            <div
+              key={index}
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}
+              className="rounded-lg border border-black/10 bg-white p-6 shadow-sm transition-all hover:border-black/20 hover:shadow-md"
+            >
+              <div className="mb-4">
+                <h3 className="mb-2 text-lg font-semibold text-black/80">{item.ingredient}</h3>
+                <p className="inline-block rounded bg-black/5 px-3 py-1 font-mono text-sm text-black/60">
+                  {item.formula}
+                </p>
+              </div>
+              <p className="text-base leading-relaxed text-black/70">{item.function}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

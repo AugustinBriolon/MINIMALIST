@@ -1,0 +1,4 @@
+{
+  "tailwindCSS.experimental.configFile": "styles/main.scss", // ou le chemin de ton fichier CSS principal
+  "editor.quickSuggestions": { "strings": true }
+}

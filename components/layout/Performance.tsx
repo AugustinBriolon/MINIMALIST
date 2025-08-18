@@ -6,6 +6,33 @@ import Image from 'next/image';
 export default function Performance() {
   const spanindexRef = useRef<HTMLSpanElement>(null);
 
+  const performanceData = [
+    {
+      title: '[HYALURONIC ACID]',
+      img: '/images/performances/hyaluronan.svg',
+      stats: '40%',
+      text: 'Increase in skin hydration levels',
+    },
+    {
+      title: '[VITAMIN C]',
+      img: '/images/performances/vitamin-c.svg',
+      stats: '25%',
+      text: 'Reduction in hyperpigmentation',
+    },
+    {
+      title: '[PEPTIDES]',
+      img: '/images/performances/peptides.svg',
+      stats: '50%',
+      text: 'Increase in collagen production',
+    },
+    {
+      title: '[NIACINAMIDE]',
+      img: '/images/performances/niacinamide.svg',
+      stats: '40%',
+      text: 'Reduction in poer size',
+    },
+  ];
+
   return (
     <div className="relative flex h-dvh w-full flex-col md:flex-row">
       <div className="absolute inset-0">
@@ -38,13 +65,24 @@ export default function Performance() {
           <p className="text-white">04</p>
         </div>
       </div>
-      <div className="z-1 flex h-full w-full flex-col items-end gap-8 md:w-1/2 md:p-16 lg:p-32">
-        <BlurCard className="aspect-square w-full max-w-lg">
-          <p className="text-white">[ HYALURONIC ACID ]</p>
-          <Image alt="hyaluronic-acid" height={100} src="/images/hyaluronic-acid.png" width={100} />
-          <p>40%</p>
-          <p>Increase in skin hydration levels</p>
-        </BlurCard>
+      <div className="z-1 flex h-full w-full flex-col items-end justify-end gap-8 md:w-1/2 md:p-16 lg:p-32">
+        {performanceData.map((performance, index) => (
+          <BlurCard
+            key={index}
+            className="flex aspect-square w-full max-w-lg flex-col justify-between p-4"
+          >
+            <p className="text-white">{performance.title}</p>
+            <Image
+              alt="hyaluronic-acid"
+              height={100}
+              src={performance.img}
+              width={100}
+              className="h-auto w-1/2"
+            />
+            <p>{performance.stats}</p>
+            <p>{performance.text}</p>
+          </BlurCard>
+        ))}
       </div>
     </div>
   );

@@ -157,6 +157,7 @@ export default function Ingredients() {
   return (
     <div
       ref={sectionRef}
+      data-section="ingredients"
       className="flex h-dvh w-full flex-col items-center justify-center bg-white lg:flex-row"
     >
       <div className="relative flex h-full w-full flex-col items-start justify-between md:w-1/2">
