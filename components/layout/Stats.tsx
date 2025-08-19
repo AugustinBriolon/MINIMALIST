@@ -2,8 +2,9 @@ import NumberFlow from '@number-flow/react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSplitTextWrapper } from '../../hook/useSplitTextWrapper';
+import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,7 +29,7 @@ export default function Stats() {
     percent: useRef<HTMLParagraphElement>(null),
   };
 
-  useLayoutEffect(() => {
+  useGSAP(() => {
     if (!sectionRef.current) return;
 
     const scrolltrigger = {
@@ -89,7 +90,7 @@ export default function Stats() {
           duration: 1,
           ease: 'power1.inOut',
         },
-        '<',
+        '+=0.5',
       )
       .from(
         textRef.percent.current,
@@ -100,11 +101,7 @@ export default function Stats() {
         },
         '-=0.5',
       );
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [wrapSplitTextLines]);
+  }, []);
 
   return (
     <section

@@ -1,87 +1,205 @@
-import NumberFlow from '@number-flow/react';
-import React, { useRef } from 'react';
-import BlurCard from '../ui/BlurCard';
+import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import { useRef } from 'react';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+interface ContentData {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const contentData: ContentData[] = [
+  {
+    id: '01',
+    number: '[01]',
+    title: 'Enhanced\nPerformance',
+    description:
+      'Our products deliver unparalleled performance, addressing a spectrum of concerns for both hair and skin types. From revitalizing damaged strands to rejuvenating tired complexions, we prioritize efficacy above all else.',
+    image: '/images/ingredient1.webp',
+  },
+  {
+    id: '02',
+    number: '[02]',
+    title: 'Scientific\nPrecision',
+    description:
+      'Backed by science, our formulations are meticulously crafted with proven ingredients that target specific skincare and haircare needs. We prioritize functionality, ensuring each product delivers optimal results without compromise.',
+    image: '/images/ingredient2.webp',
+  },
+  {
+    id: '03',
+    number: '[03]',
+    title: 'Versatility and\nAdaptability',
+    description:
+      "Whether you're seeking hydration, repair, or protection, our diverse range of products caters to a variety of concerns and preferences. With minimalist yet effective formulations, you can trust that our cosmetics will meet—and exceed— your expectations.",
+    image: '/images/ingredient3.webp',
+  },
+];
 
 export default function Performance() {
-  const spanindexRef = useRef<HTMLSpanElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const numberRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+  const descriptionRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const performanceData = [
-    {
-      title: '[HYALURONIC ACID]',
-      img: '/images/performances/hyaluronan.svg',
-      stats: '40%',
-      text: 'Increase in skin hydration levels',
-    },
-    {
-      title: '[VITAMIN C]',
-      img: '/images/performances/vitamin-c.svg',
-      stats: '25%',
-      text: 'Reduction in hyperpigmentation',
-    },
-    {
-      title: '[PEPTIDES]',
-      img: '/images/performances/peptides.svg',
-      stats: '50%',
-      text: 'Increase in collagen production',
-    },
-    {
-      title: '[NIACINAMIDE]',
-      img: '/images/performances/niacinamide.svg',
-      stats: '40%',
-      text: 'Reduction in poer size',
-    },
-  ];
+  useGSAP(() => {
+    if (!sectionRef.current) return;
+
+    const section = sectionRef.current;
+    const numbers = numberRefs.current.filter(Boolean);
+    const titles = titleRefs.current.filter(Boolean);
+    const descriptions = descriptionRefs.current.filter(Boolean);
+    const images = imageRefs.current.filter(Boolean);
+
+    contentData.forEach((_, index) => {
+      if (index === 0) return;
+
+      const triggerPoint = index === 1 ? 50 : index * 80;
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: `top+=${triggerPoint}% top`,
+          end: `top+=${triggerPoint + 60}% top`,
+          scrub: 1,
+          onUpdate: ({ progress }) => {
+            if (index > 0) {
+              gsap.set(numbers[index - 1], {
+                y: -100 * progress,
+                opacity: 1 - progress,
+              });
+              gsap.set(titles[index - 1], {
+                y: -100 * progress,
+                opacity: 1 - progress,
+              });
+              gsap.set(descriptions[index - 1], {
+                y: -100 * progress,
+                opacity: 1 - progress,
+              });
+            }
+
+            gsap.set(numbers[index], {
+              y: 100 * (1 - progress),
+              opacity: progress,
+            });
+            gsap.set(titles[index], {
+              y: 100 * (1 - progress),
+              opacity: progress,
+            });
+            gsap.set(descriptions[index], {
+              y: 100 * (1 - progress),
+              opacity: progress,
+            });
+          },
+        },
+      });
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: `top+=${triggerPoint}% top`,
+          end: `top+=${triggerPoint + 60}% top`,
+          scrub: 1,
+          onUpdate: ({ progress }) => {
+            if (images[index - 1]) {
+              gsap.set(images[index - 1], {
+                y: 0,
+                opacity: 1,
+              });
+            }
+
+            if (images[index]) {
+              gsap.set(images[index], {
+                y: 0,
+                clipPath: `inset(${(1 - progress) * 100}% 0 0 0)`,
+              });
+            }
+          },
+        },
+      });
+    });
+
+    gsap.set(numbers.slice(1), { opacity: 0, y: 100 });
+    gsap.set(titles.slice(1), { opacity: 0, y: 100 });
+    gsap.set(descriptions.slice(1), { opacity: 0, y: 100 });
+    gsap.set(images.slice(1), { clipPath: 'inset(100% 0 0 0)' });
+  }, []);
 
   return (
-    <div className="relative flex h-dvh w-full flex-col md:flex-row">
-      <div className="absolute inset-0">
-        <video className="h-full w-full object-cover" autoPlay loop muted playsInline>
-          <source src="/videos/water-drop.webm" type="video/webm" />
-          <source src="/videos/water-drop.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div className="absolute inset-0 bg-black/30"></div>
-      <div className="z-1 flex w-full flex-col items-start justify-between gap-8 md:w-1/2 md:p-16 lg:p-32">
-        <div className="flex flex-col gap-8 text-white">
-          <h2 className="text-6xl">Scientifically Proven Ingredients</h2>
-          <p>Unlock the potential of our formulations with scientifically proven ingredients</p>
-        </div>
-        <div className="flex items-center justify-center gap-8">
-          <NumberFlow
-            className="text-white"
-            value={1}
-            format={{
-              minimumIntegerDigits: 2,
-            }}
-          />
-          <div className="relative flex gap-4">
-            <span ref={spanindexRef} className="absolute top-0 h-8 w-px bg-white"></span>
-            <span className="h-8 w-px bg-white/50"></span>
-            <span className="h-8 w-px bg-white/50"></span>
-            <span className="h-8 w-px bg-white/50"></span>
-            <span className="h-8 w-px bg-white/50"></span>
-          </div>
-          <p className="text-white">04</p>
-        </div>
-      </div>
-      <div className="z-1 flex h-full w-full flex-col items-end justify-end gap-8 md:w-1/2 md:p-16 lg:p-32">
-        {performanceData.map((performance, index) => (
-          <BlurCard
-            key={index}
-            className="flex aspect-square w-full max-w-lg flex-col justify-between p-4"
+    <div
+      ref={sectionRef}
+      className="flex h-dvh w-full flex-col items-center justify-center bg-white lg:flex-row"
+      data-section="ingredients"
+    >
+      <div className="relative flex h-full w-full flex-col items-start justify-between md:w-1/2">
+        {contentData.map((content, index) => (
+          <div
+            key={content.id}
+            className={`absolute inset-0 flex h-full w-full flex-col items-start justify-between p-8 sm:p-12 md:p-16 lg:p-32 ${
+              index === 0 ? 'relative' : ''
+            }`}
           >
-            <p className="text-white">{performance.title}</p>
+            <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
+              <div className="overflow-hidden">
+                <p
+                  ref={(el) => {
+                    numberRefs.current[index] = el;
+                  }}
+                  className="text-sm font-normal text-orange-500 sm:text-base lg:text-lg"
+                >
+                  {content.number}
+                </p>
+              </div>
+              <div className="overflow-hidden">
+                <h2
+                  ref={(el) => {
+                    titleRefs.current[index] = el;
+                  }}
+                  className="text-2xl leading-tight font-normal whitespace-pre-line sm:text-3xl md:text-4xl lg:text-6xl"
+                >
+                  {content.title}
+                </h2>
+              </div>
+            </div>
+            <div className="overflow-hidden">
+              <p
+                ref={(el) => {
+                  descriptionRefs.current[index] = el;
+                }}
+                className="text-sm leading-relaxed font-light text-black/50 sm:text-base lg:text-lg"
+              >
+                {content.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative h-1/2 w-full min-w-1/2 md:w-1/2 lg:h-full">
+        {contentData.map((content, index) => (
+          <div
+            key={`image-${content.id}`}
+            ref={(el) => {
+              imageRefs.current[index] = el;
+            }}
+            className={`absolute inset-0 h-full w-full ${index === 0 ? 'relative' : ''}`}
+          >
             <Image
-              alt="hyaluronic-acid"
-              className="h-auto w-1/2"
-              height={100}
-              src={performance.img}
-              width={100}
+              alt={`Ingredients ${content.id}`}
+              className="h-full w-full object-cover"
+              height={1988}
+              src={content.image}
+              width={1600}
             />
-            <p>{performance.stats}</p>
-            <p>{performance.text}</p>
-          </BlurCard>
+          </div>
         ))}
       </div>
     </div>

@@ -12,9 +12,9 @@ export default function Home() {
     <>
       <Hero />
       <WhoWeAre />
-      <Ingredients />
+      <Performance />
       <Inside />
-      {/* <Performance /> */}
+      <Ingredients />
       <Stats />
       <Testimonials />
       <Footer />
