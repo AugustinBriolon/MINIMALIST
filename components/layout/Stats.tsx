@@ -6,9 +6,7 @@ import React, { useRef, useState } from 'react';
 import { useSplitTextWrapper } from '../../hook/useSplitTextWrapper';
 import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Stats() {
   const { wrapSplitTextLines } = useSplitTextWrapper();
@@ -124,7 +122,7 @@ export default function Stats() {
       <div className="flex h-full w-full flex-col items-start justify-between md:w-2/3">
         <div className="flex flex-col gap-4">
           <h3
-            className="text-[10vw] font-normal text-black/10 md:text-[15vw] md:leading-50"
+            className="text-[25vw] font-normal text-black/10 md:text-[10vw] md:text-[15vw] md:leading-50"
             style={{ '--number-flow-char-height': '0.85em' } as React.CSSProperties}
           >
             <NumberFlow

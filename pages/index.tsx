@@ -4,7 +4,7 @@ import Ingredients from '@/components/layout/Ingredients';
 import Inside from '@/components/layout/Inside';
 import Performance from '@/components/layout/Performance';
 import Stats from '@/components/layout/Stats';
-import Testimonials from '@/components/layout/Testimonials';
+// import Testimonials from '@/components/layout/Testimonials';
 import WhoWeAre from '@/components/layout/WhoWeAre';
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <Inside />
       <Ingredients />
       <Stats />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Footer />
     </>
   );

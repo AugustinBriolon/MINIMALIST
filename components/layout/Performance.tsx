@@ -4,9 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useRef } from 'react';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
 
 interface ContentData {
   id: string;
@@ -59,78 +57,68 @@ export default function Performance() {
     const descriptions = descriptionRefs.current.filter(Boolean);
     const images = imageRefs.current.filter(Boolean);
 
-    contentData.forEach((_, index) => {
-      if (index === 0) return;
-
-      const triggerPoint = index === 1 ? 50 : index * 80;
-
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: `top+=${triggerPoint}% top`,
-          end: `top+=${triggerPoint + 60}% top`,
-          scrub: 1,
-          onUpdate: ({ progress }) => {
-            if (index > 0) {
-              gsap.set(numbers[index - 1], {
-                y: -100 * progress,
-                opacity: 1 - progress,
-              });
-              gsap.set(titles[index - 1], {
-                y: -100 * progress,
-                opacity: 1 - progress,
-              });
-              gsap.set(descriptions[index - 1], {
-                y: -100 * progress,
-                opacity: 1 - progress,
-              });
-            }
-
-            gsap.set(numbers[index], {
-              y: 100 * (1 - progress),
-              opacity: progress,
-            });
-            gsap.set(titles[index], {
-              y: 100 * (1 - progress),
-              opacity: progress,
-            });
-            gsap.set(descriptions[index], {
-              y: 100 * (1 - progress),
-              opacity: progress,
-            });
-          },
-        },
-      });
-
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: `top+=${triggerPoint}% top`,
-          end: `top+=${triggerPoint + 60}% top`,
-          scrub: 1,
-          onUpdate: ({ progress }) => {
-            if (images[index - 1]) {
-              gsap.set(images[index - 1], {
-                y: 0,
-                opacity: 1,
-              });
-            }
-
-            if (images[index]) {
-              gsap.set(images[index], {
-                y: 0,
-                clipPath: `inset(${(1 - progress) * 100}% 0 0 0)`,
-              });
-            }
-          },
-        },
-      });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: `+=${window.innerHeight * (contentData.length + 1)}`,
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+      },
     });
 
     gsap.set(numbers.slice(1), { opacity: 0, y: 100 });
     gsap.set(titles.slice(1), { opacity: 0, y: 100 });
     gsap.set(descriptions.slice(1), { opacity: 0, y: 100 });
     gsap.set(images.slice(1), { clipPath: 'inset(100% 0 0 0)' });
+
+    contentData.forEach((_, index) => {
+      if (index === 0) return;
+
+      const duration = 1;
+      const startTime = (index - 1) * duration;
+
+      tl.to(
+        [numbers[index - 1], titles[index - 1], descriptions[index - 1]],
+        {
+          y: -100,
+          filter: 'blur(10px)',
+          opacity: 0,
+          duration: duration * 0.5,
+          ease: 'power2.in',
+        },
+        startTime,
+      )
+        .to(
+          images[index - 1],
+          {
+            clipPath: 'inset(0 0 100% 0)',
+            duration: duration * 0.7,
+            ease: 'power2.inOut',
+          },
+          startTime + duration * 0.3,
+        )
+        .to(
+          [numbers[index], titles[index], descriptions[index]],
+          {
+            y: 0,
+            opacity: 1,
+            duration: duration * 0.5,
+            ease: 'power2.out',
+          },
+          startTime + duration * 0.5,
+        )
+        .to(
+          images[index],
+          {
+            clipPath: 'inset(0% 0 0 0)',
+            duration: duration * 0.7,
+            ease: 'power2.inOut',
+          },
+          startTime + duration * 0.3,
+        );
+    });
   }, []);
 
   return (
