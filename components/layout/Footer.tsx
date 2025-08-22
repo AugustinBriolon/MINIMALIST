@@ -15,7 +15,7 @@ export default function Footer() {
         />
       </div>
       <div className="col-span-3 h-px w-full bg-white"></div>
-      <div className="items-end col-span-1 flex w-full justify-start p-8 md:items-center">
+      <div className="col-span-1 flex w-full items-end justify-start p-8 md:items-center">
         <p>2024 All rights reserved</p>
       </div>
       <div className="col-span-1 flex w-full items-center justify-center">
