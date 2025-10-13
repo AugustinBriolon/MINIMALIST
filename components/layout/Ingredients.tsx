@@ -125,8 +125,12 @@ export default function Ingredients() {
     const spanIndex = spanIndexRef.current;
     const config = getResponsiveConfig();
 
-    // Nettoyer les animations précédentes
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    // Nettoyer seulement les ScrollTriggers de ce composant
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.trigger === section) {
+        trigger.kill();
+      }
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {

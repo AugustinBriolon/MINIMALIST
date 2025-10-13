@@ -7,7 +7,7 @@ import { useIsScreenLoader } from '@/hook/useIsScreenLoader';
 
 gsap.registerPlugin(SplitText);
 
-export const timeToLoad = useIsScreenLoader() ? 3 : 0;
+export const timeToLoad = useIsScreenLoader() ? 2 : 0;
 
 export default function ScreenLoader() {
   const panelRefs = {
@@ -22,16 +22,14 @@ export default function ScreenLoader() {
   useGSAP(() => {
     if (!isFontReady) return;
 
+    gsap.set(panelRefs.bottom.current, { yPercent: 125 });
+
     gsap
       .timeline()
-      .to(panelRefs.top, {
-        delay: 1,
-        y: 100,
-      })
       .to(
         [panelRefs.top.current, panelRefs.bottom.current],
         {
-          yPercent: (i) => [-50, 50][i],
+          yPercent: (i) => [-75, 75][i],
           duration: 0.8,
           ease: 'power1.out',
         },
@@ -41,8 +39,8 @@ export default function ScreenLoader() {
         [panelRefs.left.current, panelRefs.right.current],
         {
           scaleX: 0,
-          duration: 2,
-          ease: 'power2.out',
+          duration: 1,
+          ease: 'power1.out',
         },
         '<+1.5',
       )
@@ -50,8 +48,8 @@ export default function ScreenLoader() {
         [panelRefs.top.current, panelRefs.bottom.current],
         {
           scaleY: 0,
-          duration: 2,
-          ease: 'power2.out',
+          duration: 3.5,
+          ease: 'power1.out',
         },
         '<',
       )
@@ -63,7 +61,7 @@ export default function ScreenLoader() {
   }, [isFontReady]);
 
   return (
-    <div ref={screenLoaderRef} className="fixed z-10 h-dvh w-full bg-transparent">
+    <div ref={screenLoaderRef} className="fixed z-10 h-dvh w-full overflow-hidden bg-transparent">
       <div className="relative h-full w-full">
         <div
           ref={panelRefs.left}
@@ -76,11 +74,11 @@ export default function ScreenLoader() {
 
         <div
           ref={panelRefs.top}
-          className="absolute top-0 left-0 h-1/2 w-full origin-top bg-black"
+          className="absolute top-0 left-0 h-full w-full origin-top bg-black"
         ></div>
         <div
           ref={panelRefs.bottom}
-          className="absolute bottom-0 left-0 h-1/2 w-full origin-bottom bg-black"
+          className="absolute bottom-0 left-0 h-full w-full origin-bottom bg-black"
         ></div>
       </div>
     </div>

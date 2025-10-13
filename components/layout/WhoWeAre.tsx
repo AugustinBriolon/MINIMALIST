@@ -64,31 +64,31 @@ export default function WhoWeAre() {
         {
           y: 50,
           opacity: 0,
-          duration: 1.2,
+          duration: 0.5,
           ease: 'power2.out',
         },
-        '-=0.6',
+        '>-1',
       )
       .from(
         split.lines,
         {
           y: 100,
           opacity: 0,
-          duration: 1.2,
+          duration: 0.8,
           ease: 'power2.out',
           stagger: 0.05,
         },
-        '-=0.8',
+        '>-0.25',
       )
       .from(
         lastTextRef.current,
         {
           y: 50,
           opacity: 0,
-          duration: 1.2,
+          duration: 0.8,
           ease: 'power2.out',
         },
-        '-=0.8',
+        '>-0.4',
       );
   });
 

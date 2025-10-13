@@ -1,12 +1,12 @@
-import React, { useRef } from 'react';
-import BlurCard from '../ui/BlurCard';
-import Button from '../ui/Button';
-import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
-import { timeToLoad } from './ScreenLoader';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+import { SplitText } from 'gsap/SplitText';
+import Image from 'next/image';
+import { useRef } from 'react';
+import BlurCard from '../ui/BlurCard';
+import Button from '../ui/Button';
+import { timeToLoad } from './ScreenLoader';
 
 gsap.registerPlugin(SplitText, DrawSVGPlugin);
 
@@ -40,13 +40,13 @@ export default function Hero() {
       .timeline()
       .from(titleRef.current, {
         yPercent: 100,
+        delay: timeToLoad,
         filter: 'blur(10px)',
         opacity: 0,
         duration: 1,
         ease: 'power2.out',
       })
       .from(logoRef.current, {
-        delay: timeToLoad,
         y: -100,
         filter: 'blur(10px)',
         duration: 1,
@@ -79,7 +79,7 @@ export default function Hero() {
         lineRef.one.current,
         {
           scaleX: 0,
-          duration: 2,
+          duration: 1,
           ease: 'power2.out',
         },
         '<',
@@ -88,16 +88,16 @@ export default function Hero() {
         lineRef.two.current,
         {
           scaleY: 0,
-          duration: 1,
+          duration: 0.5,
           ease: 'none',
         },
-        '>-1.5',
+        '>-0.5',
       )
       .from(
         lineRef.three.current,
         {
           scaleY: 0,
-          duration: 1,
+          duration: 0.5,
           ease: 'power2.out',
         },
         '>',
@@ -107,16 +107,25 @@ export default function Hero() {
         {
           strokeDashoffset: 0,
           opacity: 1,
-          duration: 1,
+          duration: 0.75,
           ease: 'power2.out',
         },
         '>',
       )
       .from(
+        lineRef.four.current,
+        {
+          scaleY: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '<',
+      )
+      .from(
         arrowRef.current,
         {
           backdropFilter: 'blur(0px)',
-          duration: 1,
+          duration: 0.5,
           ease: 'power2.out',
         },
         '>-0.5',
@@ -126,19 +135,10 @@ export default function Hero() {
         {
           y: -20,
           opacity: 0,
-          duration: 1,
+          duration: 0.5,
           ease: 'power2.out',
         },
         '<',
-      )
-      .from(
-        lineRef.four.current,
-        {
-          scaleY: 0,
-          duration: 1,
-          ease: 'power2.out',
-        },
-        '<-0.5',
       );
   });
 
