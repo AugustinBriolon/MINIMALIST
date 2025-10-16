@@ -11,8 +11,11 @@ import { timeToLoad } from './ScreenLoader';
 gsap.registerPlugin(SplitText, DrawSVGPlugin);
 
 export default function Hero() {
+  const imageRef = {
+    image: useRef<HTMLImageElement>(null),
+    container: useRef<HTMLDivElement>(null),
+  };
   const logoRef = useRef<HTMLHeadingElement>(null);
-  const titleRef = useRef<HTMLImageElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
   const lineRef = {
     one: useRef<HTMLDivElement>(null),
@@ -38,27 +41,37 @@ export default function Hero() {
 
     gsap
       .timeline()
-      .from(titleRef.current, {
+      .from(imageRef.container.current, {
         yPercent: 100,
         delay: timeToLoad,
-        filter: 'blur(10px)',
-        opacity: 0,
         duration: 1,
-        ease: 'power2.out',
       })
-      .from(logoRef.current, {
-        y: -100,
-        filter: 'blur(10px)',
-        duration: 1,
-        ease: 'power2.out',
-      })
+      .from(
+        imageRef.image.current,
+        {
+          yPercent: 100,
+          filter: 'blur(10px)',
+          opacity: 0,
+          duration: 1,
+          ease: 'power2.out',
+        },
+        '<',
+      )
+      .from(
+        textRef.current,
+        {
+          y: 300,
+          duration: 1,
+        },
+        '<',
+      )
       .from(
         split.words,
         {
           y: 20,
           filter: 'blur(10px)',
           opacity: 0,
-          duration: 1,
+          duration: 0.8,
           stagger: 0.05,
           ease: 'power2.out',
         },
@@ -67,7 +80,7 @@ export default function Hero() {
       .from(
         cardRef.current,
         {
-          y: 20,
+          y: 100,
           filter: 'blur(10px)',
           opacity: 0,
           duration: 1,
@@ -76,13 +89,23 @@ export default function Hero() {
         '<',
       )
       .from(
+        logoRef.current,
+        {
+          y: -100,
+          filter: 'blur(10px)',
+          duration: 1,
+          ease: 'power2.out',
+        },
+        '<+0.5',
+      )
+      .from(
         lineRef.one.current,
         {
           scaleX: 0,
           duration: 1,
           ease: 'power2.out',
         },
-        '<',
+        '>-0.5',
       )
       .from(
         lineRef.two.current,
@@ -152,9 +175,9 @@ export default function Hero() {
               MN_
             </h1>
           </div>
-          <div className="z-20 h-fit overflow-hidden">
+          <div ref={imageRef.container} className="z-20 h-fit overflow-hidden">
             <Image
-              ref={titleRef}
+              ref={imageRef.image}
               alt="Minimalist"
               className="h-auto w-full"
               height={100}

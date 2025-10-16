@@ -12,7 +12,7 @@ const BlurCard = forwardRef<HTMLDivElement, BlurCardProps>(
     return (
       <div
         ref={ref}
-        className={clsx('border border-white/10 bg-white/5 backdrop-blur-md', className)}
+        className={clsx('border border-white/10 bg-white/5 backdrop-blur-xl', className)}
         style={style}
       >
         {children}

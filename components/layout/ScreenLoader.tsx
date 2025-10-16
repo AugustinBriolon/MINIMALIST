@@ -65,11 +65,11 @@ export default function ScreenLoader() {
       <div className="relative h-full w-full">
         <div
           ref={panelRefs.left}
-          className="absolute top-0 -left-2/12 h-full w-1/2 origin-left bg-black"
+          className="absolute top-0 -left-2/12 h-full w-1/2 origin-left bg-black md:-left-1/12"
         ></div>
         <div
           ref={panelRefs.right}
-          className="absolute top-0 -right-2/12 h-full w-1/2 origin-right bg-black"
+          className="absolute top-0 -right-2/12 h-full w-1/2 origin-right bg-black md:-right-1/12"
         ></div>
 
         <div

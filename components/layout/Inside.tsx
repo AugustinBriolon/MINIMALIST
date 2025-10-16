@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 
-// Enregistrer le plugin ScrollTrigger
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -40,89 +39,66 @@ const ingredientsData: IngredientData[] = [
 export default function Inside() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const tableRef = useRef<HTMLTableElement>(null);
-  const rowRefs = useRef<(HTMLTableRowElement | null)[]>([]);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
     if (!sectionRef.current) return;
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        end: 'top 20%',
-        scrub: 1,
-        onUpdate: ({ progress }) => {
-          if (titleRef.current) {
-            gsap.set(titleRef.current, {
-              y: 100 * (1 - progress),
-              opacity: progress,
-            });
-          }
-        },
-      },
-    });
-
-    rowRefs.current.filter(Boolean).forEach((row, index) => {
-      gsap.timeline({
+    gsap
+      .timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: `top+=${20 + index * 10}% 80%`,
-          end: `top+=${20 + index * 10}% 20%`,
-          scrub: 1,
-          onUpdate: ({ progress }) => {
-            if (row) {
-              gsap.set(row, {
-                y: 50 * (1 - progress),
-                opacity: progress,
-              });
-            }
-          },
+          start: 'top 50%',
+          end: 'bottom bottom',
+          toggleActions: 'play none none reverse',
         },
-      });
-    });
-
-    cardRefs.current.filter(Boolean).forEach((card, index) => {
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: `top+=${20 + index * 10}% 80%`,
-          end: `top+=${20 + index * 10}% 20%`,
-          scrub: 1,
-          onUpdate: ({ progress }) => {
-            if (card) {
-              gsap.set(card, {
-                y: 50 * (1 - progress),
-                opacity: progress,
-              });
-            }
-          },
+      })
+      .from(titleRef.current, {
+        y: 50,
+        filter: 'blur(10px)',
+        duration: 0.8,
+        ease: 'power2.inOut',
+        opacity: 0,
+      })
+      .from(
+        '.ingredient-row',
+        {
+          y: 50,
+          filter: 'blur(10px)',
+          duration: 0.8,
+          ease: 'power2.inOut',
+          opacity: 0,
+          stagger: 0.1,
         },
-      });
-    });
-
-    gsap.set(titleRef.current, { opacity: 0, y: 100 });
-    gsap.set(rowRefs.current.filter(Boolean), { opacity: 0, y: 50 });
-    gsap.set(cardRefs.current.filter(Boolean), { opacity: 0, y: 50 });
+        '<0.5',
+      )
+      .from(
+        '.ingredient-card',
+        {
+          y: 150,
+          filter: 'blur(10px)',
+          duration: 0.8,
+          ease: 'power2.inOut',
+          opacity: 0,
+          stagger: 0.1,
+        },
+        '<0.5',
+      );
   }, []);
 
   return (
     <div ref={sectionRef} className="flex h-fit flex-col items-center justify-center bg-white">
       <div className="flex h-[50vh] items-center justify-center">
-        <div className="overflow-hidden">
-          <h2
-            ref={titleRef}
-            className="text-[10vw] font-bold text-black/20 md:text-[8vw] lg:text-[6vw]"
-          >
-            What's Inside ?
-          </h2>
-        </div>
+        <h2
+          ref={titleRef}
+          className="text-[10vw] font-bold text-black/20 md:text-[8vw] lg:text-[6vw]"
+        >
+          What's Inside ?
+        </h2>
       </div>
 
       <div className="hidden w-full px-8 py-16 lg:block">
         <div className="overflow-x-auto">
-          <table ref={tableRef} className="w-full border-collapse">
+          <table className="w-full border-collapse">
             <thead>
               <tr className="border-b border-black/10">
                 <th className="p-6 text-left text-lg font-medium text-black/70">INGREDIENT</th>
@@ -134,10 +110,7 @@ export default function Inside() {
               {ingredientsData.map((item, index) => (
                 <tr
                   key={index}
-                  ref={(el) => {
-                    rowRefs.current[index] = el;
-                  }}
-                  className="border-b border-black/5 transition-colors hover:bg-black/2"
+                  className="ingredient-row border-b border-black/5 transition-colors hover:bg-black/2"
                 >
                   <td className="p-6 text-base font-medium text-black/80">{item.ingredient}</td>
                   <td className="p-6 font-mono text-base text-black/60">{item.formula}</td>
@@ -149,15 +122,13 @@ export default function Inside() {
         </div>
       </div>
 
+      {/* Cartes Mobile */}
       <div className="w-full px-4 py-8 lg:hidden">
         <div className="space-y-4">
           {ingredientsData.map((item, index) => (
             <div
               key={index}
-              ref={(el) => {
-                cardRefs.current[index] = el;
-              }}
-              className="rounded-lg border border-black/10 bg-white p-6 shadow-sm transition-all hover:border-black/20 hover:shadow-md"
+              className="ingredient-card rounded-lg border border-black/10 bg-white p-6 shadow-sm transition-all hover:border-black/20 hover:shadow-md"
             >
               <div className="mb-4">
                 <h3 className="mb-2 text-lg font-semibold text-black/80">{item.ingredient}</h3>

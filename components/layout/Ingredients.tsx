@@ -8,7 +8,6 @@ import BlurCard from '../ui/BlurCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Hook pour détecter la taille d'écran
 const useResponsive = () => {
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 
@@ -273,7 +272,6 @@ export default function Ingredients() {
       ref={sectionRef}
       className="relative flex h-dvh w-full flex-col overflow-hidden md:flex-row"
     >
-      {/* Vidéo de fond optimisée */}
       <div className="absolute inset-0">
         <video
           className="h-full w-full object-cover"
@@ -291,7 +289,7 @@ export default function Ingredients() {
       <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Section de gauche - Layout responsive amélioré */}
-      <div className="z-10 flex w-full flex-col items-start justify-between gap-6 p-4 sm:gap-8 sm:p-6 md:w-1/2 md:p-8 lg:p-16 xl:p-32">
+      <div className="z-10 flex w-full flex-col items-start justify-between gap-6 py-4 pl-4 sm:gap-8 sm:py-6 sm:pl-6 md:w-1/2 md:py-8 md:pl-8 lg:py-16 lg:pl-16 xl:py-32 xl:pl-32">
         <div className="flex flex-col gap-4 text-white sm:gap-6 lg:gap-8">
           <h2 className="fade-in-title text-3xl leading-tight font-bold sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             Scientifically Proven Ingredients
@@ -328,7 +326,6 @@ export default function Ingredients() {
         </div>
       </div>
 
-      {/* Section des cartes - Responsive amélioré */}
       <div
         ref={cardsContainerRef}
         className="relative z-10 flex h-full w-full flex-col items-end justify-end overflow-visible p-4 sm:p-6 md:w-1/2 md:p-8 lg:p-16 xl:p-32"
@@ -339,7 +336,7 @@ export default function Ingredients() {
             <BlurCard
               key={index}
               ref={setCardRef(index)}
-              className="absolute flex w-[280px] flex-col justify-between p-3 will-change-transform sm:w-[320px] sm:p-4 md:w-[360px] lg:w-[400px] lg:p-6 xl:w-[480px]"
+              className="absolute flex aspect-square w-[280px] flex-col justify-between overflow-hidden p-3 will-change-transform sm:w-[320px] sm:p-4 md:w-[360px] lg:w-[400px] lg:p-6 xl:w-[480px]"
               style={{
                 zIndex: performanceData.length + index,
                 transformOrigin: 'center center',
@@ -351,10 +348,10 @@ export default function Ingredients() {
               <p className="text-xs font-semibold text-white sm:text-sm lg:text-base">
                 {performance.title}
               </p>
-              <div className="h-max w-full">
+              <div className="h-full w-full">
                 <Image
                   alt={performance.title}
-                  className="h-auto max-h-16 w-full sm:max-h-20 lg:max-h-24"
+                  className="mx-auto h-full max-h-[280px] w-auto py-12"
                   height={100}
                   priority={index === 0}
                   sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 120px"

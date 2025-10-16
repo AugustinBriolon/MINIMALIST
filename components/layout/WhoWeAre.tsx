@@ -10,7 +10,6 @@ export default function WhoWeAre() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const lineRefs = {
     one: useRef<SVGCircleElement>(null),
-    two: useRef<HTMLDivElement>(null),
     three: useRef<SVGCircleElement>(null),
   };
   const whoWeAreRef = useRef<HTMLHeadingElement>(null);
@@ -35,11 +34,6 @@ export default function WhoWeAre() {
     gsap
       .timeline({
         scrollTrigger: scrolltrigger,
-      })
-      .from(lineRefs.two.current, {
-        scaleY: 0,
-        duration: 2,
-        ease: 'power2.out',
       })
       .to(
         lineRefs.one.current,
@@ -67,7 +61,7 @@ export default function WhoWeAre() {
           duration: 0.5,
           ease: 'power2.out',
         },
-        '>-1',
+        '<',
       )
       .from(
         split.lines,
@@ -117,10 +111,7 @@ export default function WhoWeAre() {
             strokeWidth="0.05"
           />
         </svg>
-        <div
-          ref={lineRefs.two}
-          className="h-px w-full origin-top bg-black/10 md:block md:h-full md:w-px"
-        ></div>
+        <div className="h-px w-full origin-top bg-black/10 md:block md:h-full md:w-px"></div>
         <svg
           className="aspect-square h-full w-auto md:h-auto md:w-full"
           fill="none"

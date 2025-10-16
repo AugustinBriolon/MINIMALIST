@@ -4,6 +4,7 @@ import Ingredients from '@/components/layout/Ingredients';
 import Inside from '@/components/layout/Inside';
 import Performance from '@/components/layout/Performance';
 import Stats from '@/components/layout/Stats';
+import WhereToBuy from '@/components/layout/WhereToBuy';
 import WhoWeAre from '@/components/layout/WhoWeAre';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <Inside />
       <Ingredients />
       <Stats />
+      <WhereToBuy />
       <Footer />
     </>
   );

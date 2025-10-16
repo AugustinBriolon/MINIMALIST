@@ -30,29 +30,28 @@ export default function Stats() {
   useGSAP(() => {
     if (!sectionRef.current) return;
 
-    const scrolltrigger = {
-      trigger: sectionRef.current,
-      start: 'top 80%',
-      end: 'bottom 20%',
-      markers: false,
-      scroller: 'body',
-    };
+    const titleSplit = new SplitText(titleRef.title.current, {
+      type: 'lines',
+    });
 
-    const playAnimation = () => {
-      const titleSplit = new SplitText(titleRef.title.current, {
-        type: 'lines',
-      });
+    const subtitleSplit = new SplitText(titleRef.subtitle.current, {
+      type: 'lines',
+    });
 
-      const subtitleSplit = new SplitText(titleRef.subtitle.current, {
-        type: 'lines',
-      });
+    wrapSplitTextLines(titleSplit);
+    wrapSplitTextLines(subtitleSplit);
 
-      wrapSplitTextLines(titleSplit);
-      wrapSplitTextLines(subtitleSplit);
-
-      const tl = gsap.timeline();
-
-      tl.from([titleSplit.lines, subtitleSplit.lines], {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 30%',
+          end: 'bottom bottom',
+          markers: true,
+          toggleActions: 'play reverse none reverse',
+        },
+      })
+      .from([titleSplit.lines, subtitleSplit.lines], {
         yPercent: 100,
         duration: 0.8,
         ease: 'power2.inOut',
@@ -60,51 +59,43 @@ export default function Stats() {
           setPercent(0.229);
         },
       })
-        .from(
-          textRef.description.current,
-          {
-            yPercent: 30,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
-          '<',
-        )
-        .from(
-          [textRef.usual.current, textRef.minimalist.current],
-          {
-            yPercent: 100,
-            duration: 0.8,
-            ease: 'power1.inOut',
-          },
-          '<',
-        )
-        .from(
-          [barRef.black.current, barRef.orange.current],
-          {
-            scaleX: 0,
-            duration: 1,
-            ease: 'power1.out',
-          },
-          '+=0.5',
-        )
-        .from(
-          textRef.percent.current,
-          {
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power1.inOut',
-          },
-          '-=0.5',
-        );
-    };
-
-    ScrollTrigger.create({
-      ...scrolltrigger,
-      onEnter: () => {
-        playAnimation();
-      },
-    });
+      .from(
+        textRef.description.current,
+        {
+          yPercent: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<',
+      )
+      .from(
+        [textRef.usual.current, textRef.minimalist.current],
+        {
+          yPercent: 100,
+          duration: 0.8,
+          ease: 'power1.inOut',
+        },
+        '<',
+      )
+      .from(
+        [barRef.black.current, barRef.orange.current],
+        {
+          scaleX: 0,
+          duration: 1,
+          ease: 'power1.out',
+        },
+        '+=0.5',
+      )
+      .from(
+        textRef.percent.current,
+        {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power1.inOut',
+        },
+        '-=0.5',
+      );
   }, []);
 
   return (
