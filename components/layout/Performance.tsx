@@ -65,6 +65,9 @@ export default function Performance() {
         pin: true,
         scrub: 1,
         anticipatePin: 1,
+        pinSpacing: true,
+        refreshPriority: 1,
+        invalidateOnRefresh: true,
       },
     });
 

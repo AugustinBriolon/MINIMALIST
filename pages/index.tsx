@@ -1,5 +1,6 @@
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/layout/Hero';
+// import Ingredientss from '@/components/layout/Ingredientss';
 import Ingredients from '@/components/layout/Ingredients';
 import Inside from '@/components/layout/Inside';
 import Performance from '@/components/layout/Performance';
@@ -15,6 +16,7 @@ export default function Home() {
       <Performance />
       <Inside />
       <Ingredients />
+      {/* <Ingredientss /> */}
       <Stats />
       <WhereToBuy />
       <Footer />

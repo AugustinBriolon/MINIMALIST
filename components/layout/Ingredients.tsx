@@ -139,7 +139,9 @@ export default function Ingredients() {
         pin: true,
         scrub: 1,
         anticipatePin: 1,
-        refreshPriority: -1,
+        pinSpacing: true,
+        refreshPriority: 1,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           const { progress } = self;
           const currentCard = Math.floor(progress * performanceData.length) + 1;

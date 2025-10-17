@@ -47,8 +47,7 @@ export default function Stats() {
           trigger: sectionRef.current,
           start: 'top 30%',
           end: 'bottom bottom',
-          markers: true,
-          toggleActions: 'play reverse none reverse',
+          toggleActions: 'play none none reverse',
         },
       })
       .from([titleSplit.lines, subtitleSplit.lines], {
