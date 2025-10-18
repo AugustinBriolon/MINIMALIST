@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import { HouseOne, HouseTwo } from '@/components/atoms/Icons';
-import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { useRef } from 'react';
+import { HouseOne, HouseTwo } from '../atoms/Icons';
 
 gsap.registerPlugin(ScrollTrigger);
 
