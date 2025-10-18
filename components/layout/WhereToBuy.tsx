@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { HouseOne, HouseTwo } from '@/components/atoms/icons';
+import { HouseOne, HouseTwo } from '@/components/atoms/Icons';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
