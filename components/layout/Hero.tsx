@@ -121,7 +121,7 @@ export default function Hero() {
         {
           scaleY: 0,
           duration: 0.25,
-          ease: 'power1.inOut',
+          ease: 'power2.inOut',
         },
         '>',
       )

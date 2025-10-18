@@ -40,7 +40,7 @@ export default function WhoWeAre() {
         {
           strokeDashoffset: 0,
           duration: 2,
-          ease: 'power1.inOut',
+          ease: 'power2.inOut',
         },
         '<',
       )
@@ -49,7 +49,7 @@ export default function WhoWeAre() {
         {
           strokeDashoffset: 0,
           duration: 2,
-          ease: 'power1.inOut',
+          ease: 'power2.inOut',
         },
         '<',
       )

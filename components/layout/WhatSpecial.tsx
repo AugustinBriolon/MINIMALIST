@@ -29,6 +29,8 @@ export default function WhatSpecial() {
   useGSAP(() => {
     if (!sectionRef.current) return;
 
+    const targetValuePercent = { value: 0 };
+
     const titleSplit = new SplitText(titleRef.title.current, {
       type: 'lines',
       mask: 'lines',
@@ -48,14 +50,23 @@ export default function WhatSpecial() {
           toggleActions: 'play none none reverse',
         },
       })
-      .from([titleSplit.lines, subtitleSplit.lines], {
-        yPercent: 100,
-        duration: 0.8,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          setPercent(0.229);
+      .to(targetValuePercent, {
+        value: 22.9,
+        duration: 3,
+        ease: 'power4.inOut',
+        onUpdate: () => {
+          setPercent(targetValuePercent.value);
         },
       })
+      .from(
+        [titleSplit.lines, subtitleSplit.lines],
+        {
+          yPercent: 100,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<',
+      )
       .from(
         textRef.description.current,
         {
@@ -71,7 +82,7 @@ export default function WhatSpecial() {
         {
           yPercent: 100,
           duration: 0.8,
-          ease: 'power1.inOut',
+          ease: 'power2.inOut',
         },
         '<',
       )
@@ -79,20 +90,17 @@ export default function WhatSpecial() {
         [barRef.black.current, barRef.orange.current],
         {
           scaleX: 0,
-          duration: 1,
-          ease: 'power1.out',
+          duration: 1.8,
+          ease: 'power4.inOut',
         },
-        '+=0.5',
+        '+0.5',
       )
-      .from(
-        textRef.percent.current,
-        {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power1.inOut',
-        },
-        '-=0.5',
-      );
+      .from(textRef.percent.current, {
+        yPercent: 20,
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut',
+      });
   }, []);
 
   return (
@@ -120,9 +128,14 @@ export default function WhatSpecial() {
             style={{ '--number-flow-char-height': '0.85em' } as React.CSSProperties}
           >
             <NumberFlow
-              format={{ style: 'percent', maximumFractionDigits: 1 }}
               locales="en-US"
+              suffix="%"
               value={percent}
+              format={{
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1,
+                minimumIntegerDigits: 2,
+              }}
             />
           </h3>
           <p ref={titleRef.subtitle} className="text-4xl">

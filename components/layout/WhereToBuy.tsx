@@ -43,47 +43,64 @@ export default function WhereToBuy() {
       toggleActions: 'play reverse play reverse',
     };
 
-    gsap.from([titleRef.subtitle.current, titleRef.title.current], {
+    const tl = gsap.timeline({
       scrollTrigger: scrolltrigger,
-      y: 100,
-      opacity: 0,
-      stagger: 0.2,
     });
 
-    gsap.from([imagesRef.one.current, imagesRef.two.current], {
-      scrollTrigger: scrolltrigger,
-      y: 80,
-      opacity: 0,
-      stagger: 0.1,
-    });
-
-    gsap.from([textRef.one.current, textRef.two.current], {
-      scrollTrigger: scrolltrigger,
-      y: 80,
-      opacity: 0,
-      stagger: 0.1,
-    });
-
-    gsap.from([addressRef.one.current, addressRef.two.current], {
-      scrollTrigger: scrolltrigger,
-      y: 80,
-      opacity: 0,
-      stagger: 0.1,
-    });
-
-    gsap.from([phoneRef.one.current, phoneRef.two.current], {
-      scrollTrigger: scrolltrigger,
-      y: 80,
-      opacity: 0,
-      stagger: 0.1,
-    });
-
-    gsap.from([emailRef.one.current, emailRef.two.current], {
-      scrollTrigger: scrolltrigger,
-      y: 80,
-      opacity: 0,
-      stagger: 0.1,
-    });
+    (tl
+      .from([titleRef.subtitle.current, titleRef.title.current], {
+        y: 80,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.inOut',
+      })
+      .from(
+        [imagesRef.one.current, imagesRef.two.current],
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<+0.2',
+      )
+      .from(
+        [textRef.one.current, textRef.two.current],
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<+0.2',
+      )
+      .from(
+        [addressRef.one.current, addressRef.two.current],
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<+0.2',
+      )
+      .from(
+        [phoneRef.one.current, phoneRef.two.current],
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<+0.2',
+      )
+      .from([emailRef.one.current, emailRef.two.current], {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.inOut',
+      }),
+      '<');
   }, []);
 
   return (
