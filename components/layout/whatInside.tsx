@@ -36,30 +36,31 @@ const ingredientsData: IngredientData[] = [
   },
 ];
 
-export default function Inside() {
+export default function WhatInside() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
     if (!sectionRef.current) return;
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 50%',
-          end: 'bottom bottom',
-          toggleActions: 'play none none reverse',
-        },
-      })
-      .from(titleRef.current, {
-        y: 50,
-        filter: 'blur(10px)',
-        duration: 0.8,
-        ease: 'power2.inOut',
-        opacity: 0,
-      })
-      .from(
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 50%',
+        end: 'bottom bottom',
+        toggleActions: 'play none none reverse',
+      },
+    });
+
+    tl.from(titleRef.current, {
+      y: 50,
+      filter: 'blur(10px)',
+      duration: 0.8,
+      ease: 'power2.inOut',
+      opacity: 0,
+    });
+    if (window.innerWidth > 1024) {
+      tl.from(
         '.ingredient-row',
         {
           y: 50,
@@ -70,8 +71,9 @@ export default function Inside() {
           stagger: 0.1,
         },
         '<0.5',
-      )
-      .from(
+      );
+    } else {
+      tl.from(
         '.ingredient-card',
         {
           y: 150,
@@ -83,6 +85,7 @@ export default function Inside() {
         },
         '<0.5',
       );
+    }
   }, []);
 
   return (
@@ -128,7 +131,7 @@ export default function Inside() {
           {ingredientsData.map((item, index) => (
             <div
               key={index}
-              className="ingredient-card rounded-lg border border-black/10 bg-white p-6 shadow-sm transition-all hover:border-black/20 hover:shadow-md"
+              className="ingredient-card rounded-lg border border-black/10 bg-white p-6 shadow-sm"
             >
               <div className="mb-4">
                 <h3 className="mb-2 text-lg font-semibold text-black/80">{item.ingredient}</h3>

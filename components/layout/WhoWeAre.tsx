@@ -8,9 +8,9 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function WhoWeAre() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const lineRefs = {
+  const circleRefs = {
     one: useRef<SVGCircleElement>(null),
-    three: useRef<SVGCircleElement>(null),
+    two: useRef<SVGCircleElement>(null),
   };
   const whoWeAreRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -26,7 +26,7 @@ export default function WhoWeAre() {
 
     const scrolltrigger = {
       trigger: sectionRef.current,
-      toggleActions: 'play reverse none reverse',
+      toggleActions: 'play none none reverse',
       start: 'top 60%',
       end: 'bottom 20%',
     };
@@ -36,20 +36,20 @@ export default function WhoWeAre() {
         scrollTrigger: scrolltrigger,
       })
       .to(
-        lineRefs.one.current,
+        circleRefs.one.current,
         {
           strokeDashoffset: 0,
           duration: 2,
-          ease: 'power2.out',
+          ease: 'power1.inOut',
         },
         '<',
       )
       .to(
-        lineRefs.three.current,
+        circleRefs.two.current,
         {
           strokeDashoffset: 0,
-          duration: 1.2,
-          ease: 'power2.out',
+          duration: 2,
+          ease: 'power1.inOut',
         },
         '<',
       )
@@ -99,7 +99,7 @@ export default function WhoWeAre() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
-            ref={lineRefs.one}
+            ref={circleRefs.one}
             cx="12"
             cy="12"
             fill="none"
@@ -119,7 +119,7 @@ export default function WhoWeAre() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
-            ref={lineRefs.three}
+            ref={circleRefs.two}
             cx="12"
             cy="12"
             fill="none"

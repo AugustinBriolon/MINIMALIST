@@ -3,13 +3,12 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useRef, useState } from 'react';
-import { useSplitTextWrapper } from '../../hook/useSplitTextWrapper';
+
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-export default function Stats() {
-  const { wrapSplitTextLines } = useSplitTextWrapper();
+export default function WhatSpecial() {
   const [percent, setPercent] = useState(0);
   const barRef = {
     orange: useRef<HTMLDivElement>(null),
@@ -32,14 +31,13 @@ export default function Stats() {
 
     const titleSplit = new SplitText(titleRef.title.current, {
       type: 'lines',
+      mask: 'lines',
     });
 
     const subtitleSplit = new SplitText(titleRef.subtitle.current, {
       type: 'lines',
+      mask: 'lines',
     });
-
-    wrapSplitTextLines(titleSplit);
-    wrapSplitTextLines(subtitleSplit);
 
     gsap
       .timeline({

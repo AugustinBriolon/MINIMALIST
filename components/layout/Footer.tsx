@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="col-span-1 flex w-full items-center justify-center">
         <div className="h-full w-px bg-[#292f3a]"></div>
       </div>
-      <div className="col-span-1 flex w-full flex-col items-end justify-end gap-4 p-8">
+      <div className="col-span-1 flex w-full flex-col items-end justify-end gap-1 p-8">
         <a
           className="group text-sm text-white/40"
           href="https://dribbble.com/Afterglow-studio"

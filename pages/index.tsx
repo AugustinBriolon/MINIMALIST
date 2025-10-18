@@ -1,10 +1,9 @@
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/layout/Hero';
-// import Ingredientss from '@/components/layout/Ingredientss';
 import Ingredients from '@/components/layout/Ingredients';
-import Inside from '@/components/layout/Inside';
 import Performance from '@/components/layout/Performance';
-import Stats from '@/components/layout/Stats';
+import WhatInside from '@/components/layout/WhatInside';
+import WhatSpecial from '@/components/layout/WhatSpecial';
 import WhereToBuy from '@/components/layout/WhereToBuy';
 import WhoWeAre from '@/components/layout/WhoWeAre';
 
@@ -14,10 +13,10 @@ export default function Home() {
       <Hero />
       <WhoWeAre />
       <Performance />
-      <Inside />
+      <WhatInside />
       <Ingredients />
       {/* <Ingredientss /> */}
-      <Stats />
+      <WhatSpecial />
       <WhereToBuy />
       <Footer />
     </>

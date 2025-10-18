@@ -66,6 +66,16 @@ export default function Hero() {
         '<',
       )
       .from(
+        logoRef.current,
+        {
+          y: -100,
+          filter: 'blur(10px)',
+          duration: 1,
+          ease: 'power2.out',
+        },
+        '<',
+      )
+      .from(
         split.words,
         {
           y: 20,
@@ -89,16 +99,6 @@ export default function Hero() {
         '<',
       )
       .from(
-        logoRef.current,
-        {
-          y: -100,
-          filter: 'blur(10px)',
-          duration: 1,
-          ease: 'power2.out',
-        },
-        '<+0.5',
-      )
-      .from(
         lineRef.one.current,
         {
           scaleX: 0,
@@ -111,17 +111,17 @@ export default function Hero() {
         lineRef.two.current,
         {
           scaleY: 0,
-          duration: 0.5,
+          duration: 0.25,
           ease: 'none',
         },
-        '>-0.5',
+        '>-0.25',
       )
       .from(
         lineRef.three.current,
         {
           scaleY: 0,
-          duration: 0.5,
-          ease: 'power2.out',
+          duration: 0.25,
+          ease: 'power1.inOut',
         },
         '>',
       )

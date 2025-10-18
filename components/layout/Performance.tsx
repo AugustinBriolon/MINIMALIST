@@ -1,10 +1,11 @@
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import Image from 'next/image';
 import { useRef } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 interface ContentData {
   id: string;
@@ -47,6 +48,8 @@ export default function Performance() {
   const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
   const descriptionRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const titleSplitRefs = useRef<SplitText[]>([]);
+  const descriptionSplitRefs = useRef<SplitText[]>([]);
 
   useGSAP(() => {
     if (!sectionRef.current) return;
@@ -63,17 +66,47 @@ export default function Performance() {
         start: 'top top',
         end: `+=${window.innerHeight * (contentData.length + 1)}`,
         pin: true,
+        pinSpacing: true,
         scrub: 1,
         anticipatePin: 1,
-        pinSpacing: true,
         refreshPriority: 1,
         invalidateOnRefresh: true,
       },
     });
 
-    gsap.set(numbers.slice(1), { opacity: 0, y: 100 });
-    gsap.set(titles.slice(1), { opacity: 0, y: 100 });
-    gsap.set(descriptions.slice(1), { opacity: 0, y: 100 });
+    titles.forEach((title, index) => {
+      if (title) {
+        const titleSplit = new SplitText(title, {
+          type: 'words',
+          mask: 'words',
+        });
+        titleSplitRefs.current[index] = titleSplit;
+      }
+    });
+
+    descriptions.forEach((description, index) => {
+      if (description) {
+        const descriptionSplit = new SplitText(description, {
+          type: 'words',
+          mask: 'words',
+        });
+        descriptionSplitRefs.current[index] = descriptionSplit;
+      }
+    });
+
+    titleSplitRefs.current.slice(1).forEach((titleSplit) => {
+      if (titleSplit) {
+        gsap.set(titleSplit.words, { yPercent: 100 });
+      }
+    });
+
+    descriptionSplitRefs.current.slice(1).forEach((descriptionSplit) => {
+      if (descriptionSplit) {
+        gsap.set(descriptionSplit.words, { yPercent: 100 });
+      }
+    });
+
+    gsap.set(numbers.slice(1), { yPercent: 100 });
     gsap.set(images.slice(1), { clipPath: 'inset(100% 0 0 0)' });
 
     contentData.forEach((_, index) => {
@@ -82,45 +115,71 @@ export default function Performance() {
       const duration = 1;
       const startTime = (index - 1) * duration;
 
+      const prevTitleSplit = titleSplitRefs.current[index - 1];
+      const prevDescriptionSplit = descriptionSplitRefs.current[index - 1];
+      if (prevTitleSplit && prevDescriptionSplit) {
+        tl.to(
+          [prevTitleSplit.words, prevDescriptionSplit.words],
+          {
+            yPercent: -100,
+            duration: duration * 0.5,
+            ease: 'power2.in',
+          },
+          startTime,
+        );
+      }
+
       tl.to(
-        [numbers[index - 1], titles[index - 1], descriptions[index - 1]],
+        [numbers[index - 1]],
         {
-          y: -100,
-          filter: 'blur(10px)',
-          opacity: 0,
+          yPercent: -100,
           duration: duration * 0.5,
           ease: 'power2.in',
         },
         startTime,
-      )
-        .to(
-          images[index - 1],
+      ).to(
+        images[index - 1],
+        {
+          clipPath: 'inset(0 0 100% 0)',
+          duration: duration * 0.7,
+          ease: 'power2.inOut',
+        },
+        startTime + duration * 0.3,
+      );
+
+      const currentTitleSplit = titleSplitRefs.current[index];
+      const currentDescriptionSplit = descriptionSplitRefs.current[index];
+      if (currentTitleSplit && currentDescriptionSplit) {
+        tl.to(
+          [currentTitleSplit.words, currentDescriptionSplit.words],
           {
-            clipPath: 'inset(0 0 100% 0)',
-            duration: duration * 0.7,
-            ease: 'power2.inOut',
-          },
-          startTime + duration * 0.3,
-        )
-        .to(
-          [numbers[index], titles[index], descriptions[index]],
-          {
-            y: 0,
+            yPercent: 0,
             opacity: 1,
             duration: duration * 0.5,
             ease: 'power2.out',
           },
           startTime + duration * 0.5,
-        )
-        .to(
-          images[index],
-          {
-            clipPath: 'inset(0% 0 0 0)',
-            duration: duration * 0.7,
-            ease: 'power2.inOut',
-          },
-          startTime + duration * 0.3,
         );
+      }
+
+      tl.to(
+        [numbers[index]],
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: duration * 0.5,
+          ease: 'power2.out',
+        },
+        startTime + duration * 0.5,
+      ).to(
+        images[index],
+        {
+          clipPath: 'inset(0% 0 0 0)',
+          duration: duration * 0.7,
+          ease: 'power2.inOut',
+        },
+        startTime + duration * 0.3,
+      );
     });
   }, []);
 
@@ -149,16 +208,14 @@ export default function Performance() {
                   {content.number}
                 </p>
               </div>
-              <div className="overflow-hidden">
-                <h2
-                  ref={(el) => {
-                    titleRefs.current[index] = el;
-                  }}
-                  className="text-2xl leading-tight font-normal whitespace-pre-line sm:text-3xl md:text-4xl lg:text-6xl"
-                >
-                  {content.title}
-                </h2>
-              </div>
+              <h2
+                ref={(el) => {
+                  titleRefs.current[index] = el;
+                }}
+                className="text-2xl leading-tight font-normal whitespace-pre-line sm:text-3xl md:text-4xl lg:text-6xl"
+              >
+                {content.title}
+              </h2>
             </div>
             <div className="overflow-hidden">
               <p
