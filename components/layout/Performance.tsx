@@ -157,6 +157,7 @@ export default function Performance() {
             opacity: 1,
             duration: duration * 0.5,
             ease: 'power2.out',
+            stagger: 0.005,
           },
           startTime + duration * 0.5,
         );
