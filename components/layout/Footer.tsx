@@ -21,22 +21,24 @@ export default function Footer() {
       </div>
       <div className="col-span-1 flex w-full flex-col items-end justify-end gap-1 p-8">
         <a
-          className="group text-sm text-white/40"
+          className="group text-sx text-white/40 md:text-sm"
           href="https://dribbble.com/Afterglow-studio"
           rel="noopener noreferrer"
           target="_blank"
         >
           Designed by{' '}
-          <span className="text-lg transition-colors group-hover:text-white">Afterglow Studio</span>
+          <span className="text-base text-nowrap transition-colors group-hover:text-white sm:text-lg">
+            Afterglow Studio
+          </span>
         </a>
         <a
-          className="group text-sm text-white/40"
+          className="group text-sx text-white/40 md:text-sm"
           href="https://www.paranthese.studio"
           rel="noopener noreferrer"
           target="_blank"
         >
           Code by{' '}
-          <span className="text-lg transition-colors group-hover:text-white">
+          <span className="text-base text-nowrap transition-colors group-hover:text-white sm:text-lg">
             PARANTHESE STUDIO
           </span>
         </a>

@@ -93,7 +93,7 @@ export default function WhoWeAre() {
     >
       <div className="absolute inset-0 flex flex-col items-center justify-center md:flex-row">
         <svg
-          className="aspect-square h-full w-auto md:h-auto md:w-full"
+          className="aspect-square h-full w-auto max-w-full md:h-auto md:w-full"
           fill="none"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export default function WhoWeAre() {
         </svg>
         <div className="h-px w-full origin-top bg-black/10 md:block md:h-full md:w-px"></div>
         <svg
-          className="aspect-square h-full w-auto md:h-auto md:w-full"
+          className="aspect-square h-full w-auto max-w-full md:h-auto md:w-full"
           fill="none"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
