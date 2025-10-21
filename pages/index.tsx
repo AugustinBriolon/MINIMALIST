@@ -1,6 +1,6 @@
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/layout/Hero';
-import Ingredients from '@/components/layout/Ingredients';
+import Ingredient from '@/components/layout/Ingredient';
 import Performance from '@/components/layout/Performance';
 import WhatInside from '@/components/layout/WhatInside';
 import WhatSpecial from '@/components/layout/WhatSpecial';
@@ -14,8 +14,7 @@ export default function Home() {
       <WhoWeAre />
       <Performance />
       <WhatInside />
-      <Ingredients />
-      {/* <Ingredientss /> */}
+      <Ingredient />
       <WhatSpecial />
       <WhereToBuy />
       <Footer />

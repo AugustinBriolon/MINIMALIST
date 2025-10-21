@@ -108,7 +108,7 @@ export default function WhereToBuy() {
       ref={sectionRef}
       className="flex min-h-dvh flex-col items-center justify-between gap-12 bg-white px-4 py-16 md:gap-16 md:py-32"
     >
-      <div className="flex flex-col items-center justify-center gap-8 text-center">
+      <div className="flex flex-col items-center justify-center gap-4 text-center md:gap-8">
         <h2
           ref={titleRef.subtitle}
           className="text-sm font-normal text-orange-500 sm:text-base lg:text-lg"
@@ -119,52 +119,52 @@ export default function WhereToBuy() {
           Buy our products <br /> in stores
         </h3>
       </div>
-      <div className="grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">
+      <div className="grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 md:gap-8">
         <div className="flex h-full max-w-2/3 flex-col items-center justify-center gap-4 md:gap-8">
           <HouseOne
             ref={imagesRef.one}
-            className="h-46 w-auto fill-black/30 transition-colors hover:fill-orange-500"
+            className="h-32 w-auto fill-black/30 transition-colors hover:fill-orange-500 md:h-46"
           />
           <h2
             ref={textRef.one}
-            className="text-sm font-normal text-orange-500 sm:text-base lg:text-lg"
+            className="text-xs font-normal text-orange-500 sm:text-base lg:text-lg"
           >
             [ STORE-1 ]
           </h2>
           <h3
             ref={addressRef.one}
-            className="flex h-44 max-h-fit items-start justify-center text-center text-2xl text-pretty sm:text-3xl md:text-4xl lg:h-32 lg:text-6xl"
+            className="flex h-44 max-h-fit items-start justify-center text-center text-lg text-pretty sm:text-3xl md:text-4xl lg:h-32"
           >
             Career Mallorca, 123, 08036 Barcelona, Spain
           </h3>
-          <p ref={phoneRef.one} className="text-sm font-normal sm:text-base lg:text-lg">
+          <p ref={phoneRef.one} className="text-xs font-normal sm:text-base lg:text-lg">
             +34 123 456 789
           </p>
-          <p ref={emailRef.one} className="text-sm font-normal sm:text-base lg:text-lg">
+          <p ref={emailRef.one} className="text-xs font-normal sm:text-base lg:text-lg">
             info@minimalist.com
           </p>
         </div>
         <div className="flex h-full max-w-2/3 flex-col items-center justify-center gap-4 md:gap-8">
           <HouseTwo
             ref={imagesRef.two}
-            className="h-46 w-auto fill-black/30 transition-colors hover:fill-orange-500"
+            className="h-32 w-auto fill-black/30 transition-colors hover:fill-orange-500 md:h-46"
           />
           <h2
             ref={textRef.two}
-            className="text-sm font-normal text-orange-500 sm:text-base lg:text-lg"
+            className="text-xs font-normal text-orange-500 sm:text-base lg:text-lg"
           >
             [ STORE-2 ]
           </h2>
           <h3
             ref={addressRef.two}
-            className="flex h-44 max-h-fit items-start justify-center text-center text-2xl text-pretty sm:text-3xl md:text-4xl lg:h-32 lg:text-6xl"
+            className="flex h-44 max-h-fit items-start justify-center text-center text-lg text-pretty sm:text-3xl md:text-4xl lg:h-32"
           >
             123 Oxford Street, London, W1D 1LU, United Kingdom
           </h3>
-          <p ref={phoneRef.two} className="text-sm font-normal sm:text-base lg:text-lg">
+          <p ref={phoneRef.two} className="text-xs font-normal sm:text-base lg:text-lg">
             +44 20 1234 5678
           </p>
-          <p ref={emailRef.two} className="text-sm font-normal sm:text-base lg:text-lg">
+          <p ref={emailRef.two} className="text-xs font-normal sm:text-base lg:text-lg">
             info@minimalist.com.uk
           </p>
         </div>
