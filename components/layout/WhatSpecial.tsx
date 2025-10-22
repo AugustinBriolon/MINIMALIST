@@ -45,7 +45,7 @@ export default function WhatSpecial() {
       .timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 30%',
+          start: 'top 70%',
           end: 'bottom bottom',
           toggleActions: 'play none none reverse',
         },

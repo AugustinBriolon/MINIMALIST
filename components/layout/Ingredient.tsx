@@ -49,7 +49,6 @@ export default function Ingredient() {
     if (!sectionRef.current) return;
 
     const cards = cardRefs.current.filter(Boolean);
-    const indexValue = { value: 0 };
 
     gsap.set(cards, { xPercent: 200 });
 
@@ -79,47 +78,37 @@ export default function Ingredient() {
         {
           xPercent: 0,
           duration: 1,
-          ease: 'power2.inOut',
+          ease: 'power1.inOut',
         },
-        '<-2.5',
+        i <= 1 ? '>-1' : '>-2',
       ).to(
-        indexValue,
+        spanIndexRef.current,
         {
-          value: i + 1,
+          left: `${(i / (performanceData.length - 1)) * 100}%`,
           duration: 1,
           ease: 'power2.inOut',
         },
-        '>',
+        '<',
       );
 
-      if (i <= 2) {
-        tl.to(
-          card,
-          {
-            xPercent: 1,
-            yPercent: 1,
-            opacity: 0.8,
-            delay: i / performanceData.length + 1,
-            duration: 1,
-            ease: 'power2.inOut',
-          },
-          '<',
-        );
+      if (i < performanceData.length - 1) {
+        tl.to(card, {
+          xPercent: 1,
+          yPercent: 1,
+          opacity: 0.8,
+          duration: 1,
+          ease: 'power2.inOut',
+        });
+      }
 
-        if (i <= 1) {
-          tl.to(
-            card,
-            {
-              xPercent: 2,
-              yPercent: 2,
-              opacity: 0.6,
-              delay: i / performanceData.length + 1,
-              duration: 1,
-              ease: 'power2.inOut',
-            },
-            '>',
-          );
-        }
+      if (i <= 1) {
+        tl.to(card, {
+          xPercent: 2,
+          yPercent: 2,
+          opacity: 0.6,
+          duration: 1,
+          ease: 'power2.inOut',
+        });
       }
     });
   }, []);
@@ -157,7 +146,6 @@ export default function Ingredient() {
           </p>
         </div>
 
-        {/* Indicateur de progression responsive */}
         <div className="flex items-center gap-4 sm:gap-6 lg:gap-8">
           <NumberFlow
             className="font-bold text-white"
@@ -166,18 +154,15 @@ export default function Ingredient() {
               minimumIntegerDigits: 2,
             }}
           />
-          <div
-            ref={indicatorRef}
-            className="relative flex w-10 items-center justify-between sm:w-12"
-          >
+          <div ref={indicatorRef} className="relative flex items-center gap-3 sm:gap-4">
             <span
               ref={spanIndexRef}
-              className="absolute top-0 left-0 h-4 w-[2px] bg-white sm:h-5 lg:h-6"
+              className="absolute top-0 left-0 h-4 w-[2px] max-w-[2px] min-w-[2px] bg-white sm:h-5 lg:h-6"
             ></span>
             {performanceData.map((_, index) => (
               <span
                 key={index}
-                className="h-4 w-[2px] flex-shrink-0 bg-white/50 sm:h-5 lg:h-6"
+                className="h-4 w-[2px] max-w-[2px] min-w-[2px] flex-shrink-0 bg-white/50 sm:h-5 lg:h-6"
               ></span>
             ))}
           </div>
@@ -196,7 +181,7 @@ export default function Ingredient() {
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
-            className="absolute flex aspect-square w-[280px] flex-col justify-between overflow-hidden p-3 will-change-transform sm:w-[320px] sm:p-4 md:w-[360px] lg:w-[400px] lg:p-6 xl:w-[480px]"
+            className="absolute flex h-[280px] w-[280px] flex-col justify-between overflow-hidden p-3 will-change-transform sm:h-[320px] sm:w-[320px] sm:p-4 md:h-[360px] md:w-[360px] lg:h-[400px] lg:w-[400px] lg:p-6 xl:h-[480px] xl:w-[480px]"
           >
             <p className="text-xs font-semibold text-white sm:text-sm lg:text-base">
               {performance.title}

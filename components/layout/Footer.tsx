@@ -1,16 +1,13 @@
-import Image from 'next/image';
+import { useRef } from 'react';
+import { Logo } from '../ui/Icons';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 export default function Footer() {
   return (
     <div className="grid w-full grid-cols-[1fr_auto_1fr] bg-[#1d212d] text-white">
       <div className="col-span-3 p-8">
-        <Image
-          alt="Minimalist"
-          className="h-auto w-full opacity-5"
-          height={100}
-          src="/icons/Minimalist.svg"
-          width={100}
-        />
+        <Logo className="h-auto w-full opacity-5" />
       </div>
       <div className="col-span-3 h-px w-full bg-[#292f3a]"></div>
       <div className="col-span-1 flex w-full items-end justify-start p-8 md:items-center">

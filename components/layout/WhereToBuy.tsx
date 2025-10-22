@@ -38,7 +38,7 @@ export default function WhereToBuy() {
 
     const scrolltrigger = {
       trigger: sectionRef.current,
-      start: 'top 80%',
+      start: 'top 70%',
       end: 'bottom 30%',
       toggleActions: 'play reverse play reverse',
     };

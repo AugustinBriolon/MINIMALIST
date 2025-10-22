@@ -81,9 +81,9 @@ export default function WhatInside() {
           duration: 0.8,
           ease: 'power2.inOut',
           opacity: 0,
-          stagger: 0.1,
+          stagger: 0.05,
         },
-        '<0.5',
+        '<+0.5',
       );
     }
   }, []);
