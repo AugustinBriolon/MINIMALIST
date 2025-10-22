@@ -1,7 +1,4 @@
-import { useRef } from 'react';
 import { Logo } from '../ui/Icons';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 
 export default function Footer() {
   return (
