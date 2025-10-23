@@ -1,15 +1,17 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import SplitText from 'gsap/SplitText';
 import { useFontReady } from '@/hook/useFontReady';
 import { useIsScreenLoader } from '@/hook/useIsScreenLoader';
+import { useScroll } from '@/hook/useScroll';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import SplitText from 'gsap/SplitText';
+import { useRef } from 'react';
 
 gsap.registerPlugin(SplitText);
 
 export const timeToLoad = useIsScreenLoader() ? 2.5 : 0;
 
 export default function ScreenLoader() {
+  const { lockScroll } = useScroll();
   const panelRefs = {
     top: useRef(null),
     bottom: useRef(null),
@@ -21,6 +23,7 @@ export default function ScreenLoader() {
 
   useGSAP(() => {
     if (!isFontReady) return;
+    lockScroll(true);
 
     gsap.set(panelRefs.left.current, { scaleX: 0.8 });
     gsap.set(panelRefs.right.current, { scaleX: 0.8 });
@@ -57,7 +60,8 @@ export default function ScreenLoader() {
         display: 'none',
         opacity: 0,
         duration: 0,
-      });
+      })
+      .add(() => lockScroll(false));
   }, [isFontReady]);
 
   return (

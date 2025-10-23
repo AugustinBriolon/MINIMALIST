@@ -5,10 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useRef, useState } from 'react';
 
 import { useGSAP } from '@gsap/react';
+import { useFontReady } from '@/hook/useFontReady';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function WhatSpecial() {
+  const isFontReady = useFontReady();
   const [percent, setPercent] = useState(0);
   const barRef = {
     orange: useRef<HTMLDivElement>(null),
@@ -27,18 +29,23 @@ export default function WhatSpecial() {
   };
 
   useGSAP(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || !isFontReady) return;
 
     const targetValuePercent = { value: 0 };
 
     const titleSplit = new SplitText(titleRef.title.current, {
-      type: 'lines',
-      mask: 'lines',
+      type: 'words',
+      mask: 'words',
     });
 
     const subtitleSplit = new SplitText(titleRef.subtitle.current, {
-      type: 'lines',
-      mask: 'lines',
+      type: 'words',
+      mask: 'words',
+    });
+
+    const descriptionSplit = new SplitText(textRef.description.current, {
+      type: 'words',
+      mask: 'words',
     });
 
     gsap
@@ -59,30 +66,32 @@ export default function WhatSpecial() {
         },
       })
       .from(
-        [titleSplit.lines, subtitleSplit.lines],
+        [titleSplit.words, subtitleSplit.words],
         {
           yPercent: 100,
-          duration: 0.8,
-          ease: 'power2.inOut',
+          stagger: 0.05,
+          duration: 1.2,
+          ease: 'power2.out',
         },
         '<',
       )
       .from(
-        textRef.description.current,
+        descriptionSplit.words,
         {
-          yPercent: 30,
-          opacity: 0,
+          y: 20,
+          stagger: 0.01,
           duration: 0.8,
-          ease: 'power2.inOut',
+          ease: 'power2.out',
         },
-        '<',
+        '<+0.5',
       )
       .from(
         [textRef.usual.current, textRef.minimalist.current],
         {
-          yPercent: 100,
+          y: 20,
+          opacity: 0,
           duration: 0.8,
-          ease: 'power2.inOut',
+          ease: 'power2.out',
         },
         '<',
       )
@@ -90,18 +99,18 @@ export default function WhatSpecial() {
         [barRef.black.current, barRef.orange.current],
         {
           scaleX: 0,
-          duration: 1.8,
+          duration: 3,
           ease: 'power4.inOut',
         },
-        '+0.5',
+        '<',
       )
       .from(textRef.percent.current, {
-        yPercent: 20,
+        y: 10,
         opacity: 0,
-        duration: 1,
-        ease: 'power2.inOut',
+        duration: 1.2,
+        ease: 'power1.out',
       });
-  }, []);
+  }, [isFontReady]);
 
   return (
     <section

@@ -3,10 +3,12 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/SplitText';
+import { useFontReady } from '@/hook/useFontReady';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function WhoWeAre() {
+  const isFontReady = useFontReady();
   const sectionRef = useRef<HTMLDivElement>(null);
   const circleRefs = {
     one: useRef<SVGCircleElement>(null),
@@ -17,7 +19,7 @@ export default function WhoWeAre() {
   const lastTextRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!textRef.current || !sectionRef.current) return;
+    if (!sectionRef.current || !isFontReady) return;
 
     const split = new SplitText(textRef.current, {
       type: 'lines',
@@ -84,7 +86,7 @@ export default function WhoWeAre() {
         },
         '>-0.4',
       );
-  });
+  }, [isFontReady]);
 
   return (
     <section

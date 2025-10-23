@@ -1,3 +1,4 @@
+import { useFontReady } from '@/hook/useFontReady';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -43,6 +44,7 @@ const contentData: ContentData[] = [
 ];
 
 export default function Performance() {
+  const isFontReady = useFontReady();
   const sectionRef = useRef<HTMLDivElement>(null);
   const numberRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
@@ -52,7 +54,7 @@ export default function Performance() {
   const descriptionSplitRefs = useRef<SplitText[]>([]);
 
   useGSAP(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || !isFontReady) return;
 
     const section = sectionRef.current;
     const numbers = numberRefs.current.filter(Boolean);
@@ -182,7 +184,7 @@ export default function Performance() {
         startTime + duration * 0.3,
       );
     });
-  }, []);
+  }, [isFontReady]);
 
   return (
     <div

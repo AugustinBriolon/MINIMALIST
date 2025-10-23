@@ -6,7 +6,7 @@ export function useFontReady() {
   useEffect(() => {
     let cancelled = false;
     if ('fonts' in document) {
-      document.fonts.load('1em Helvetica').then(() => {
+      document.fonts.ready.then(() => {
         if (!cancelled) setReady(true);
       });
     } else {

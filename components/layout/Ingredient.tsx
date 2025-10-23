@@ -49,8 +49,9 @@ export default function Ingredient() {
     if (!sectionRef.current) return;
 
     const cards = cardRefs.current.filter(Boolean);
+    const positionCards = cardsContainerRef.current?.clientWidth ?? 0 / performanceData.length;
 
-    gsap.set(cards, { xPercent: 200 });
+    gsap.set(cards, { xPercent: positionCards });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -65,9 +66,14 @@ export default function Ingredient() {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const { progress } = self;
-          const currentCard = Math.floor(progress * performanceData.length) + 1;
-          const clampedCard = Math.min(currentCard, performanceData.length);
-          setIndex(clampedCard);
+          const currentCard = Math.round(progress * (performanceData.length - 1)) + 1;
+          const clampedCard = Math.min(Math.max(currentCard, 1), performanceData.length);
+          setIndex((prevIndex) => {
+            if (clampedCard !== prevIndex) {
+              return clampedCard;
+            }
+            return prevIndex;
+          });
         },
       },
     });
@@ -78,15 +84,15 @@ export default function Ingredient() {
         {
           xPercent: 0,
           duration: 1,
-          ease: 'power1.inOut',
+          ease: 'power2.out',
         },
         i <= 1 ? '>-1' : '>-2',
       ).to(
         spanIndexRef.current,
         {
-          left: `${(i / (performanceData.length - 1)) * 100}%`,
+          left: `${(i / (performanceData.length - 1)) * (100 - 2)}%`,
           duration: 1,
-          ease: 'power2.inOut',
+          ease: 'power2.out',
         },
         '<',
       );
@@ -97,7 +103,7 @@ export default function Ingredient() {
           yPercent: 1,
           opacity: 0.8,
           duration: 1,
-          ease: 'power2.inOut',
+          ease: 'power2.out',
         });
       }
 
@@ -107,7 +113,7 @@ export default function Ingredient() {
           yPercent: 2,
           opacity: 0.6,
           duration: 1,
-          ease: 'power2.inOut',
+          ease: 'power2.out',
         });
       }
     });
@@ -119,10 +125,10 @@ export default function Ingredient() {
       className="relative flex h-dvh w-full flex-col overflow-hidden md:flex-row"
     >
       <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-black/5"></div>
         <video
           className="h-full w-full object-cover"
           preload="metadata"
-          style={{ willChange: 'auto' }}
           autoPlay
           loop
           muted
@@ -133,7 +139,7 @@ export default function Ingredient() {
         </video>
       </div>
       <div className="absolute inset-0 bg-black/30"></div>
-      <div className="z-10 flex w-full flex-col items-start justify-between gap-6 py-8 pr-8 pl-8 sm:gap-8 sm:pr-0 md:w-1/2 md:py-8 md:pl-8 lg:py-16 lg:pl-16 xl:py-32 xl:pl-32">
+      <div className="z-10 flex w-full flex-col items-start justify-between gap-6 py-8 pr-8 pl-8 sm:gap-8 sm:pr-0 md:w-1/2 md:py-8 md:pl-8 lg:py-16 lg:pl-16 xl:py-22 xl:pl-22">
         <div className="flex flex-col gap-4 text-white sm:gap-6 lg:gap-8">
           <h2
             ref={titleRef}
@@ -162,7 +168,7 @@ export default function Ingredient() {
             {performanceData.map((_, index) => (
               <span
                 key={index}
-                className="h-4 w-[2px] max-w-[2px] min-w-[2px] flex-shrink-0 bg-white/50 sm:h-5 lg:h-6"
+                className="h-4 w-[2px] max-w-[2px] min-w-[2px] bg-white/50 sm:h-5 lg:h-6"
               ></span>
             ))}
           </div>

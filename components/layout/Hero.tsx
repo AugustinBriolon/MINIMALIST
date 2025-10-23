@@ -7,10 +7,12 @@ import { useRef } from 'react';
 import BlurCard from '../ui/BlurCard';
 import Button from '../ui/Button';
 import { timeToLoad } from './ScreenLoader';
+import { useFontReady } from '@/hook/useFontReady';
 
 gsap.registerPlugin(SplitText, DrawSVGPlugin);
 
 export default function Hero() {
+  const isFontReady = useFontReady();
   const imageRef = {
     image: useRef<HTMLImageElement>(null),
     container: useRef<HTMLDivElement>(null),
@@ -29,6 +31,8 @@ export default function Hero() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (!isFontReady) return;
+
     const split = new SplitText(textRef.current, {
       type: 'words',
     });
@@ -163,7 +167,7 @@ export default function Hero() {
         },
         '<',
       );
-  });
+  }, [isFontReady]);
 
   return (
     <div className="relative h-dvh w-full bg-[url(/images/hero.webp)] bg-cover bg-center">
@@ -183,6 +187,7 @@ export default function Hero() {
               height={100}
               src="/icons/Minimalist.svg"
               width={100}
+              priority
             />
           </div>
         </div>

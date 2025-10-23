@@ -4,14 +4,14 @@ export default function Footer() {
   return (
     <div className="grid w-full grid-cols-[1fr_auto_1fr] bg-[#1d212d] text-white">
       <div className="col-span-3 p-8">
-        <Logo className="h-auto w-full opacity-5" />
+        <Logo className="h-auto w-full opacity-10" />
       </div>
-      <div className="col-span-3 h-px w-full bg-[#292f3a]"></div>
+      <div className="col-span-3 h-px w-full bg-white/10"></div>
       <div className="col-span-1 flex w-full items-end justify-start p-8 md:items-center">
         <p className="text-white/40">2024 All rights reserved</p>
       </div>
       <div className="col-span-1 flex w-full items-center justify-center">
-        <div className="h-full w-px bg-[#292f3a]"></div>
+        <div className="h-full w-px bg-white/10"></div>
       </div>
       <div className="col-span-1 flex w-full flex-col items-end justify-end gap-1 p-8">
         <a

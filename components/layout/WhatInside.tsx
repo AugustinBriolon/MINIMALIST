@@ -54,21 +54,21 @@ export default function WhatInside() {
 
     tl.from(titleRef.current, {
       y: 50,
-      filter: 'blur(10px)',
-      duration: 0.8,
-      ease: 'power2.inOut',
       opacity: 0,
+      filter: 'blur(10px)',
+      duration: 1.4,
+      ease: 'power2.out',
     });
     if (window.innerWidth > 1024) {
       tl.from(
         '.ingredient-row',
         {
           y: 50,
-          filter: 'blur(10px)',
-          duration: 0.8,
-          ease: 'power2.inOut',
           opacity: 0,
+          filter: 'blur(10px)',
           stagger: 0.1,
+          duration: 1.2,
+          ease: 'power2.out',
         },
         '<0.5',
       );
@@ -77,11 +77,11 @@ export default function WhatInside() {
         '.ingredient-card',
         {
           y: 150,
-          filter: 'blur(10px)',
-          duration: 0.8,
-          ease: 'power2.inOut',
           opacity: 0,
+          filter: 'blur(10px)',
           stagger: 0.05,
+          duration: 1.2,
+          ease: 'power2.out',
         },
         '<+0.5',
       );

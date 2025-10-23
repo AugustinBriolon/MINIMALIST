@@ -1,12 +1,15 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import SplitText from 'gsap/dist/SplitText';
 import { useRef } from 'react';
 import { HouseOne, HouseTwo } from '../ui/Icons';
+import { useFontReady } from '@/hook/useFontReady';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function WhereToBuy() {
+  const isFontReady = useFontReady();
   const sectionRef = useRef(null);
   const titleRef = {
     title: useRef<HTMLHeadingElement>(null),
@@ -34,7 +37,16 @@ export default function WhereToBuy() {
   };
 
   useGSAP(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || !isFontReady) return;
+
+    const addressOneSplit = new SplitText(addressRef.one.current, {
+      type: 'words',
+      mask: 'words',
+    });
+    const addressTwoSplit = new SplitText(addressRef.two.current, {
+      type: 'words',
+      mask: 'words',
+    });
 
     const scrolltrigger = {
       trigger: sectionRef.current,
@@ -47,22 +59,23 @@ export default function WhereToBuy() {
       scrollTrigger: scrolltrigger,
     });
 
-    (tl
-      .from([titleRef.subtitle.current, titleRef.title.current], {
-        y: 80,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.inOut',
-      })
+    tl.from([titleRef.subtitle.current, titleRef.title.current], {
+      y: 80,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power2.out',
+    })
       .from(
         [imagesRef.one.current, imagesRef.two.current],
         {
           y: 20,
           opacity: 0,
+          filter: 'blur(10px)',
           duration: 0.8,
           ease: 'power2.inOut',
         },
-        '<+0.2',
+        '<+0.1',
       )
       .from(
         [textRef.one.current, textRef.two.current],
@@ -72,17 +85,18 @@ export default function WhereToBuy() {
           duration: 0.8,
           ease: 'power2.inOut',
         },
-        '<+0.2',
+        '<+0.1',
       )
       .from(
-        [addressRef.one.current, addressRef.two.current],
+        [addressOneSplit.words, addressTwoSplit.words],
         {
           y: 20,
           opacity: 0,
-          duration: 0.8,
-          ease: 'power2.inOut',
+          duration: 1.2,
+          stagger: 0.01,
+          ease: 'power2.out',
         },
-        '<+0.2',
+        '<+0.1',
       )
       .from(
         [phoneRef.one.current, phoneRef.two.current],
@@ -90,18 +104,21 @@ export default function WhereToBuy() {
           y: 20,
           opacity: 0,
           duration: 0.8,
-          ease: 'power2.inOut',
+          ease: 'power2.out',
+        },
+        '<+0.5',
+      )
+      .from(
+        [emailRef.one.current, emailRef.two.current],
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.out',
         },
         '<+0.2',
-      )
-      .from([emailRef.one.current, emailRef.two.current], {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.inOut',
-      }),
-      '<');
-  }, []);
+      );
+  }, [isFontReady]);
 
   return (
     <section
@@ -120,7 +137,7 @@ export default function WhereToBuy() {
         </h3>
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 md:gap-8">
-        <div className="flex h-full max-w-2/3 flex-col items-center justify-center gap-4 md:gap-8">
+        <div className="flex h-full max-w-2/3 flex-col items-center justify-start gap-4 md:gap-8">
           <HouseOne
             ref={imagesRef.one}
             className="h-32 w-auto fill-black/30 transition-colors hover:fill-orange-500 md:h-46"
@@ -133,7 +150,7 @@ export default function WhereToBuy() {
           </h2>
           <h3
             ref={addressRef.one}
-            className="flex h-44 max-h-fit items-start justify-center text-center text-lg text-pretty sm:text-3xl md:text-4xl lg:h-32"
+            className="h-16 min-h-fit text-center text-lg text-pretty sm:text-3xl md:text-4xl lg:h-32"
           >
             Career Mallorca, 123, 08036 Barcelona, Spain
           </h3>
@@ -144,7 +161,7 @@ export default function WhereToBuy() {
             info@minimalist.com
           </p>
         </div>
-        <div className="flex h-full max-w-2/3 flex-col items-center justify-center gap-4 md:gap-8">
+        <div className="flex h-full max-w-2/3 flex-col items-center justify-start gap-4 md:gap-8">
           <HouseTwo
             ref={imagesRef.two}
             className="h-32 w-auto fill-black/30 transition-colors hover:fill-orange-500 md:h-46"
@@ -157,7 +174,7 @@ export default function WhereToBuy() {
           </h2>
           <h3
             ref={addressRef.two}
-            className="flex h-44 max-h-fit items-start justify-center text-center text-lg text-pretty sm:text-3xl md:text-4xl lg:h-32"
+            className="h-16 min-h-fit text-center text-lg text-pretty sm:text-3xl md:text-4xl lg:h-32"
           >
             123 Oxford Street, London, W1D 1LU, United Kingdom
           </h3>
