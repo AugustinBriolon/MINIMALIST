@@ -27,6 +27,12 @@ export const useScroll = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+  }, [lenis]);
+
   const lockScroll = (shouldLock: boolean) => {
     if (shouldLock) {
       lenis?.scrollTo(0, { immediate: true });

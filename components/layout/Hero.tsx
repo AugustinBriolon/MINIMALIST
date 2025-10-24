@@ -61,6 +61,15 @@ export default function Hero() {
         },
         '<',
       )
+      .to(
+        imageRef.image.current,
+        {
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.out',
+        },
+        '<',
+      )
       .from(
         textRef.current,
         {
@@ -183,7 +192,7 @@ export default function Hero() {
             <Image
               ref={imageRef.image}
               alt="Minimalist"
-              className="h-auto w-full"
+              className="h-auto w-full opacity-0"
               height={100}
               src="/icons/Minimalist.svg"
               width={100}
