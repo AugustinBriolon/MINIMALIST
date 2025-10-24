@@ -56,6 +56,15 @@
   color: white;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 html {
   font-family: 'Helvetica';
 }
@@ -64,4 +73,5 @@ body {
   background: white;
   background-color: white;
   color: var(--color-black);
+  cursor: none;
 }
