@@ -7,13 +7,21 @@ export default function Footer() {
         <Logo className="h-auto w-full opacity-10" />
       </div>
       <div className="col-span-3 h-px w-full bg-white/10"></div>
-      <div className="col-span-1 flex w-full items-end justify-start p-8 md:items-center">
-        <p className="text-white/40">2024 All rights reserved</p>
+      <div className="col-span-1 flex w-full flex-col items-start justify-start p-8">
+        <p className="text-xs text-pretty text-white/40">
+          © Concept project for demonstration purposes only.
+        </p>
+        <p className="text-xs text-pretty text-white/40">
+          Not affiliated with Minimaliste or Afterglow.
+        </p>
+        <p className="text-xs text-pretty text-white/40">
+          All rights to original designs and trademarks belong to their respective owners.
+        </p>
       </div>
       <div className="col-span-1 flex w-full items-center justify-center">
         <div className="h-full w-px bg-white/10"></div>
       </div>
-      <div className="col-span-1 flex w-full flex-col items-end justify-end gap-1 p-8">
+      <div className="col-span-1 flex w-full flex-col items-end justify-start gap-1 p-8">
         <a
           className="group text-sx text-white/40 md:text-sm"
           href="https://dribbble.com/Afterglow-studio"
