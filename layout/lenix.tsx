@@ -1,3 +1,4 @@
+import SEO from '@/components/SEO';
 import gsap from 'gsap';
 import { LenisRef, ReactLenis } from 'lenis/react';
 import { ReactNode, useEffect, useRef } from 'react';
@@ -16,9 +17,12 @@ function SmoothScrolling({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ReactLenis ref={lenisRef} options={{ lerp: 0.1, duration: 1.5 }} root>
-      {children}
-    </ReactLenis>
+    <>
+      <SEO />
+      <ReactLenis ref={lenisRef} options={{ lerp: 0.1, duration: 1.5 }} root>
+        {children}
+      </ReactLenis>
+    </>
   );
 }
 
