@@ -22,23 +22,13 @@ const SEO = ({
       <meta content="notranslate" name="google" />
 
       {/* OGTAGS */}
-      <meta content="PARANTHESE STUDIO" property="og:site_name" />
+      <meta content="MINIMALIST" property="og:site_name" />
       <meta content={title} property="og:title" />
       <meta content="en_US" property="og:locale" />
       <meta content={description} property="og:description" />
       <meta content={image} property="og:image" />
       <meta content={url} property="og:url" />
       <meta content="website" property="og:type" />
-
-      {/* TWITTER CARDS */}
-      <meta content="summary_large_image" property="twitter:card" />
-      <meta content="@ParantheseStudio" property="twitter:creator" />
-      <meta content={title} property="twitter:title" />
-      <meta content={description} property="twitter:description" />
-      <meta content={image} property="twitter:image" />
-      <meta content={url} property="twitter:url" />
-      <meta content="@ParantheseStudio" property="twitter:site" />
-      <meta content="paranthese.studio" property="twitter:domain" />
 
       {/* FAVICON */}
       <link href="/favicon/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />

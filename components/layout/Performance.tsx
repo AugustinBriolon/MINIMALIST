@@ -57,10 +57,10 @@ export default function Performance() {
     if (!sectionRef.current || !isFontReady) return;
 
     const section = sectionRef.current;
-    const numbers = numberRefs.current.filter(Boolean);
-    const titles = titleRefs.current.filter(Boolean);
-    const descriptions = descriptionRefs.current.filter(Boolean);
-    const images = imageRefs.current.filter(Boolean);
+    const numbers = numberRefs.current;
+    const titles = titleRefs.current;
+    const descriptions = descriptionRefs.current;
+    const images = imageRefs.current;
 
     const tl = gsap.timeline({
       scrollTrigger: {
